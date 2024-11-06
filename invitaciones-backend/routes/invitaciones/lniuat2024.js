@@ -1,38 +1,30 @@
 const express = require('express');
 const router = express.Router();
 const Graduado = require('../../models/Graduado');
-const { validarProyecto } = require('../../utils/helpers');
 
-// Crear una invitación para LNIUAT2024
-router.post('/crear', validarProyecto, async (req, res) => {
+// Obtener información de un invitado específico
+router.get('/:primerNombre,:primerApellido,:index', async (req, res) => {
   try {
-    const { nombre, esFamilia, cantidadInvitados, proyectoId } = req.body;
+    const { primerNombre, primerApellido, index } = req.params;
+    const nombreCompleto = `${primerNombre.trim()} ${primerApellido.trim()}`.toLowerCase();
 
-    const nombreEnlace = nombre.replace(/\s+/g, '').toLowerCase();
-    const link = `https://chaimanzana.com/Invitation/Grad/LNIUAT2024/${nombreEnlace}`;
+    // Buscar el graduado por nombre completo
+    const graduado = await Graduado.findOne({ nombreCompleto: new RegExp(`^${nombreCompleto}$`, 'i') });
+    
+    if (!graduado) {
+      return res.status(404).json({ error: 'Graduado no encontrado' });
+    }
 
-    const nuevoGraduado = new Graduado({
-      nombre,
-      esFamilia,
-      cantidadInvitados,
-      link,
-      proyecto: proyectoId
-    });
+    const invitadoIndex = parseInt(index, 10);
 
-    await nuevoGraduado.save();
-    res.status(201).json(nuevoGraduado);
+    if (invitadoIndex < 0 || invitadoIndex >= graduado.arrayInvitados.length) {
+      return res.status(400).json({ error: 'Índice de invitado no válido' });
+    }
+
+    const invitado = graduado.arrayInvitados[invitadoIndex];
+    res.json(invitado);
   } catch (error) {
-    res.status(500).json({ error: 'Error al crear la invitación' });
-  }
-});
-
-// Obtener todas las invitaciones de LNIUAT2024
-router.get('/listar', validarProyecto, async (req, res) => {
-  try {
-    const invitaciones = await Graduado.find({ proyecto: req.params.proyectoId });
-    res.json(invitaciones);
-  } catch (error) {
-    res.status(500).json({ error: 'Error al obtener las invitaciones' });
+    res.status(500).json({ error: 'Error al buscar el invitado' });
   }
 });
 
