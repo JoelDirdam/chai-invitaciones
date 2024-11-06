@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const Graduado = require('../../models/Graduado');
 
-// Obtener información de un invitado específico
+// Obtener información de un invitado específico y del graduado
 router.get('/:primerNombre,:primerApellido,:index', async (req, res) => {
   try {
     const { primerNombre, primerApellido, index } = req.params;
@@ -22,7 +22,19 @@ router.get('/:primerNombre,:primerApellido,:index', async (req, res) => {
     }
 
     const invitado = graduado.arrayInvitados[invitadoIndex];
-    res.json(invitado);
+
+    // Enviar la información del graduado y del invitado
+    res.json({
+      graduado: {
+        email: graduado.email,
+        nombreCompleto: graduado.nombreCompleto,
+        numeroInvitados: graduado.numeroInvitados,
+        proyecto: graduado.proyecto,
+        createdAt: graduado.createdAt,
+        updatedAt: graduado.updatedAt
+      },
+      invitado: invitado
+    });
   } catch (error) {
     res.status(500).json({ error: 'Error al buscar el invitado' });
   }

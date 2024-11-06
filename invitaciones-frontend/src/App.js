@@ -1,23 +1,16 @@
-import logo from './logo.svg';
-import './App.css';
+import React from 'react';
+import Lniuat2024 from './components/invitations/lniuat2024';
 
 function App() {
+  // Aquí puedes reemplazar estos valores con datos dinámicos si es necesario
+  const primerNombre = 'Juan';
+  const primerApellido = 'Perez';
+  const index = 2;
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <h1>Vista de Graduado</h1>
+      <Lniuat2024 primerNombre={primerNombre} primerApellido={primerApellido} index={index} />
     </div>
   );
 }
