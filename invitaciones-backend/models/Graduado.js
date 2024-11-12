@@ -8,11 +8,13 @@ const invitadoSchema = new Schema({
 });
 
 const graduadoSchema = new Schema({
+  _id: { type: Number, required: true }, // ID manual para comenzar desde 1
   email: { type: String, required: true }, // Email del graduado
   nombreCompleto: { type: String, required: true }, // Nombre completo del graduado
   numeroInvitados: { type: Number, required: true }, // Número total de invitados permitidos
   arrayInvitados: { type: [invitadoSchema], required: true }, // Lista de invitados
-  proyecto: { type: Schema.Types.ObjectId, ref: 'Proyecto', required: true } // Referencia al proyecto
+  numeroLista: { type: Number, required: true }, // Número de lista personalizado
+  adicional: { type: String, default: '' } // Campo adicional que puede ser un string vacío
 }, { timestamps: true });
 
 const Graduado = mongoose.model('Graduado', graduadoSchema);

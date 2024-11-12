@@ -15,7 +15,7 @@ router.get('/:primerNombre,:primerApellido,:index', async (req, res) => {
       return res.status(404).json({ error: 'Graduado no encontrado' });
     }
 
-    const invitadoIndex = parseInt(index - 1, 10);
+    const invitadoIndex = parseInt(index - 1, 10); // Ajuste para que el índice comience en 1
 
     if (invitadoIndex < 0 || invitadoIndex >= graduado.arrayInvitados.length) {
       return res.status(400).json({ error: 'Índice de invitado no válido' });
@@ -29,7 +29,8 @@ router.get('/:primerNombre,:primerApellido,:index', async (req, res) => {
         email: graduado.email,
         nombreCompleto: graduado.nombreCompleto,
         numeroInvitados: graduado.numeroInvitados,
-        proyecto: graduado.proyecto,
+        numeroLista: graduado.numeroLista, // Agregado numeroLista
+        adicional: graduado.adicional, // Agregado adicional
         createdAt: graduado.createdAt,
         updatedAt: graduado.updatedAt
       },
@@ -59,7 +60,7 @@ router.put('/actualizar-estado/:primerNombre,:primerApellido,:index', async (req
       return res.status(404).json({ error: 'Graduado no encontrado' });
     }
 
-    const invitadoIndex = parseInt(index - 1, 10);
+    const invitadoIndex = parseInt(index, 10); // No se ajusta el índice, se utiliza tal cual
 
     if (invitadoIndex < 0 || invitadoIndex >= graduado.arrayInvitados.length) {
       return res.status(400).json({ error: 'Índice de invitado no válido' });
