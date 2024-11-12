@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
-const GraduadoInfo = ({ primerNombre, primerApellido, index }) => {
+const Lniuat2024 = ({ primerNombre, primerApellido, index }) => {
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -9,7 +9,7 @@ const GraduadoInfo = ({ primerNombre, primerApellido, index }) => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(`http://localhost:5000/invitations/lniuat2024/${primerNombre},${primerApellido},${index}`);
+        const response = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/invitations/lniuat2024/${primerNombre},${primerApellido},${index}`);
         setData(response.data);
         setLoading(false);
       } catch (err) {
@@ -47,4 +47,4 @@ const GraduadoInfo = ({ primerNombre, primerApellido, index }) => {
   );
 };
 
-export default GraduadoInfo;
+export default Lniuat2024;

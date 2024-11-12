@@ -1,2 +1,3 @@
 /invitaciones-backend/.env
-/invitaciones-frontend/.env
+/invitaciones-frontend/.env.development
+/invitaciones-frontend/.env.production
