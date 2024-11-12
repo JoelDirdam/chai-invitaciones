@@ -32,8 +32,9 @@ const Lniuat2024 = ({ primerNombre, primerApellido, index }) => {
           <p><strong>Email:</strong> {data.graduado.email}</p>
           <p><strong>Nombre Completo:</strong> {data.graduado.nombreCompleto}</p>
           <p><strong>Número de Invitados:</strong> {data.graduado.numeroInvitados}</p>
-          <p><strong>Proyecto:</strong> {data.graduado.proyecto}</p>
-          <p><strong>Creado el:</strong> {new Date(data.graduado.createdAt).toLocaleDateString()}</p>
+          {data.graduado.adicional && data.graduado.adicional.trim() !== '' && (
+            <p><strong>Adicional:</strong> {data.graduado.adicional}</p>
+          )}
 
           <h2>Información del Invitado</h2>
           <p><strong>Nombre:</strong> {data.invitado.nombre}</p>

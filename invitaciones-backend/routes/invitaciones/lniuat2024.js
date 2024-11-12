@@ -8,8 +8,11 @@ router.get('/:primerNombre,:primerApellido,:index', async (req, res) => {
     const { primerNombre, primerApellido, index } = req.params;
     const nombreCompleto = `${primerNombre.trim()} ${primerApellido.trim()}`.toLowerCase();
 
-    // Buscar el graduado por nombre completo
-    const graduado = await Graduado.findOne({ nombreCompleto: new RegExp(`^${nombreCompleto}$`, 'i') });
+    // Usar una expresión regular para buscar nombres que contengan tanto el primer nombre como el apellido
+    const regex = new RegExp(`${primerNombre.trim()}.*${primerApellido.trim()}`, 'i');
+    
+    // Buscar el graduado por un nombre que contenga el primer nombre y el apellido
+    const graduado = await Graduado.findOne({ nombreCompleto: regex });
     
     if (!graduado) {
       return res.status(404).json({ error: 'Graduado no encontrado' });
@@ -29,8 +32,8 @@ router.get('/:primerNombre,:primerApellido,:index', async (req, res) => {
         email: graduado.email,
         nombreCompleto: graduado.nombreCompleto,
         numeroInvitados: graduado.numeroInvitados,
-        numeroLista: graduado.numeroLista, // Agregado numeroLista
-        adicional: graduado.adicional, // Agregado adicional
+        numeroLista: graduado.numeroLista,
+        adicional: graduado.adicional,
         createdAt: graduado.createdAt,
         updatedAt: graduado.updatedAt
       },
