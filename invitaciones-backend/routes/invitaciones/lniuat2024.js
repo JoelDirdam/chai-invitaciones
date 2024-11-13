@@ -31,6 +31,7 @@ router.get('/:primerNombre,:primerApellido,:index', async (req, res) => {
       graduado: {
         email: graduado.email,
         nombreCompleto: graduado.nombreCompleto,
+        genero: graduado.genero,
         numeroInvitados: graduado.numeroInvitados,
         numeroLista: graduado.numeroLista,
         adicional: graduado.adicional,

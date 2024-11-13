@@ -11,6 +11,7 @@ const graduadoSchema = new Schema({
   _id: { type: Number, required: true }, // ID manual para comenzar desde 1
   email: { type: String, required: true }, // Email del graduado
   nombreCompleto: { type: String, required: true }, // Nombre completo del graduado
+  genero: {type: String, enum: ['masculino', 'femenino'], default: 'femenino' }, // Genero del graduado
   numeroInvitados: { type: Number, required: true }, // Número total de invitados permitidos
   arrayInvitados: { type: [invitadoSchema], required: true }, // Lista de invitados
   numeroLista: { type: Number, required: true }, // Número de lista personalizado
