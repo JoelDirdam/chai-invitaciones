@@ -8,6 +8,7 @@ module.exports = {
       backgroundImage: {
         'hbg1': "url('/src/assets/invitations/lniuat2024/bg1.svg')",
         'hbg2': "url('/src/assets/invitations/lniuat2024/bg2.svg')",
+        'hbg3': "url('/src/assets/invitations/lniuat2024/bg3.svg')",
       },
       fontFamily: {
         bison: ['Bison', 'sans-serif'],

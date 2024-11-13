@@ -1,0 +1,12 @@
+.custom-gradient {
+    background: linear-gradient(to bottom, #040814 2%, transparent 50%, transparent);
+}
+
+.custom-gradient-bottom {
+    background: linear-gradient(to bottom, transparent 50%, transparent, #040814);
+    background-position: bottom;
+}
+
+.custom-gradient-3 {
+    background: linear-gradient(to bottom, #040814 12%, transparent 60%, transparent);
+}
