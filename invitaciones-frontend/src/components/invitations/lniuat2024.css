@@ -1,3 +1,6 @@
+body {
+    overflow-x: hidden;
+  }
 .custom-gradient {
     background: linear-gradient(to bottom, #040814 2%, transparent 50%, transparent);
 }

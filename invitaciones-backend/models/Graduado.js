@@ -4,7 +4,8 @@ const Schema = mongoose.Schema;
 const invitadoSchema = new Schema({
   nombre: { type: String, required: true }, // Nombre del invitado
   cantidadPases: { type: Number, required: true }, // Número de pases asignados
-  status: { type: String, enum: ['pendiente', 'confirmada', 'cancelada'], default: 'pendiente' } // Estado de confirmación
+  status: { type: String, enum: ['pendiente', 'confirmada', 'cancelada'], default: 'pendiente' }, // Estado de confirmación
+  cantidadPasesInd: {type: Number, required: false, default: 0 } // Numero de pases indicados por el usuario
 });
 
 const graduadoSchema = new Schema({

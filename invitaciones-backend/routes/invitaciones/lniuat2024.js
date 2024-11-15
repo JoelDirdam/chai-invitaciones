@@ -57,8 +57,11 @@ router.put('/actualizar-estado/:primerNombre,:primerApellido,:index', async (req
       return res.status(400).json({ error: 'Estado no válido' });
     }
 
-    // Buscar el graduado por nombre completo
-    const graduado = await Graduado.findOne({ nombreCompleto: new RegExp(`^${nombreCompleto}$`, 'i') });
+    // Usar una expresión regular para buscar nombres que contengan tanto el primer nombre como el apellido
+    const regex = new RegExp(`${primerNombre.trim()}.*${primerApellido.trim()}`, 'i');
+    
+    // Buscar el graduado por un nombre que contenga el primer nombre y el apellido
+    const graduado = await Graduado.findOne({ nombreCompleto: regex });
     
     if (!graduado) {
       return res.status(404).json({ error: 'Graduado no encontrado' });
