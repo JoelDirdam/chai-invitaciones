@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import Birrete from "../../assets/invitations/lniuat2024/birrete.svg";
-import Stars1 from "../../assets/invitations/lniuat2024/stars1.svg";
+import Birrete from "../../../assets/invitations/lniuat2024/birrete.svg";
+import Stars1 from "../../../assets/invitations/lniuat2024/stars1.svg";
 //import Stars2 from "../../assets/invitations/lniuat2024/stars2.svg";
-import IconLocation from "../../assets/invitations/lniuat2024/icon-location.svg";
-import "../invitations/lniuat2024.css";
+import IconLocation from "../../../assets/invitations/lniuat2024/icon-location.svg";
+import "../lniuat2024/lniuat2024.css";
 
 const Lniuat2024 = ({ primerNombre, primerApellido, index }) => {
   const [data, setData] = useState(null);

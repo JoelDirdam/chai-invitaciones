@@ -3,6 +3,7 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 const dotenv = require('dotenv');
 const invitacionesRouter = require('./routes/invitaciones/lniuat2024');
+const panelRouter = require('./routes/invitaciones/panel');
 
 dotenv.config();
 
@@ -23,6 +24,7 @@ app.use(express.json());
 
 // Rutas
 app.use('/invitations/lniuat2024', invitacionesRouter);
+app.use('/invitations/lniuat2024/panel', panelRouter);
 
 // Iniciar el servidor
 app.listen(PORT, () => {
