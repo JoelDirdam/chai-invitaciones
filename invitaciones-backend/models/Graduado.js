@@ -16,7 +16,8 @@ const graduadoSchema = new Schema({
   numeroInvitados: { type: Number, required: true }, // Número total de invitados permitidos
   arrayInvitados: { type: [invitadoSchema], required: true }, // Lista de invitados
   numeroLista: { type: Number, required: true }, // Número de lista personalizado
-  adicional: { type: String, default: '' } // Campo adicional que puede ser un string vacío
+  adicional: { type: String, default: '' }, // Campo adicional que puede ser un string vacío
+  imagenes: { type: [String], default: [] } // Array de imágenes en base64
 }, { timestamps: true });
 
 const Graduado = mongoose.model('Graduado', graduadoSchema);

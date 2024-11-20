@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+//import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import Panel from './Panel'; // Componente del panel de invitaciones
 
 function PanelWrapper() {
-  const navigate = useNavigate();
+  //const navigate = useNavigate();
   const [loading, setLoading] = useState(true); // Cambiar a true para la carga inicial
   const [isAuthorized, setIsAuthorized] = useState(false);
   const [password, setPassword] = useState('');

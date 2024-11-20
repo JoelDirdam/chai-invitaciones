@@ -7,8 +7,12 @@ module.exports = {
     extend: {
       backgroundImage: {
         'hbg1': "url('/src/assets/invitations/lniuat2024/bg1.svg')",
+        'hbg1web': "url('/src/assets/invitations/lniuat2024/bg1web.svg')",
         'hbg2': "url('/src/assets/invitations/lniuat2024/bg2.svg')",
+        'hbg2web': "url('/src/assets/invitations/lniuat2024/bg2web.svg')",
         'hbg3': "url('/src/assets/invitations/lniuat2024/bg3.svg')",
+        'hbg3web': "url('/src/assets/invitations/lniuat2024/bg3web.svg')",
+        'hbg4': "url('/src/assets/invitations/lniuat2024/bg4.svg')",
       },
       fontFamily: {
         bison: ['Bison', 'sans-serif'],

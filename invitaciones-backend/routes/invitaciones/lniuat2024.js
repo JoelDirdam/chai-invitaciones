@@ -35,7 +35,7 @@ router.get('/:primerNombre,:primerApellido,:index', async (req, res) => {
         numeroInvitados: graduado.numeroInvitados,
         numeroLista: graduado.numeroLista,
         adicional: graduado.adicional,
-        createdAt: graduado.createdAt,
+        imagenes: graduado.imagenes,
         updatedAt: graduado.updatedAt
       },
       invitado: invitado
@@ -45,44 +45,46 @@ router.get('/:primerNombre,:primerApellido,:index', async (req, res) => {
   }
 });
 
-// Ruta para actualizar el estado de un invitado específico
+// Ruta para actualizar el estado de un invitado específico y la cantidad de pases
 router.put('/actualizar-estado/:primerNombre,:primerApellido,:index', async (req, res) => {
   try {
     const { primerNombre, primerApellido, index } = req.params;
-    const { nuevoEstado } = req.body; // 'nuevoEstado' se envía en el cuerpo de la petición
+    const { nuevoEstado, cantidadPasesInd } = req.body; // 'nuevoEstado' y 'cantidadPasesInd' se envían en el cuerpo de la petición
     const nombreCompleto = `${primerNombre.trim()} ${primerApellido.trim()}`.toLowerCase();
 
     // Validar que el estado sea uno de los permitidos
-    if (!['pendiente', 'confirmada', 'cancelada'].includes(nuevoEstado)) {
+    if (!['confirmada', 'cancelada'].includes(nuevoEstado)) {
       return res.status(400).json({ error: 'Estado no válido' });
     }
 
     // Usar una expresión regular para buscar nombres que contengan tanto el primer nombre como el apellido
     const regex = new RegExp(`${primerNombre.trim()}.*${primerApellido.trim()}`, 'i');
-    
+
     // Buscar el graduado por un nombre que contenga el primer nombre y el apellido
     const graduado = await Graduado.findOne({ nombreCompleto: regex });
-    
+
     if (!graduado) {
       return res.status(404).json({ error: 'Graduado no encontrado' });
     }
 
-    const invitadoIndex = parseInt(index, 10); // No se ajusta el índice, se utiliza tal cual
+    const invitadoIndex = parseInt(index - 1, 10);
 
     if (invitadoIndex < 0 || invitadoIndex >= graduado.arrayInvitados.length) {
       return res.status(400).json({ error: 'Índice de invitado no válido' });
     }
 
-    // Actualizar el estado del invitado
+    // Actualizar el estado y la cantidad de pases del invitado
     graduado.arrayInvitados[invitadoIndex].status = nuevoEstado;
+    graduado.arrayInvitados[invitadoIndex].cantidadPasesInd = cantidadPasesInd; // Actualiza la cantidad de pases
 
     // Guardar los cambios en la base de datos
     await graduado.save();
 
-    res.json({ mensaje: 'Estado del invitado actualizado exitosamente', invitado: graduado.arrayInvitados[invitadoIndex] });
+    res.json({ mensaje: 'Estado y cantidad de pases actualizados exitosamente', invitado: graduado.arrayInvitados[invitadoIndex] });
   } catch (error) {
     res.status(500).json({ error: 'Error al actualizar el estado del invitado' });
   }
 });
+
 
 module.exports = router;

@@ -1,7 +1,12 @@
 body {
     overflow-x: hidden;
+}
+
+.custom-gradient-1 {
+    background: linear-gradient(to bottom, transparent, transparent 2%, #040814 90%);
   }
-.custom-gradient {
+
+.custom-gradient-2 {
     background: linear-gradient(to bottom, #040814 2%, transparent 50%, transparent);
 }
 
@@ -13,3 +18,24 @@ body {
 .custom-gradient-3 {
     background: linear-gradient(to bottom, #040814 12%, transparent 60%, transparent);
 }
+
+.custom-gradient-4 {
+    background: linear-gradient(to bottom, transparent 30%, white 45%, #040814 75%);
+}
+
+@media (min-width: 768px) {
+    .custom-gradient-1 {
+      background: linear-gradient(to bottom, transparent, transparent 2%, #040814 65%);
+    }
+    .custom-gradient-2 {
+        background: linear-gradient(to bottom, #040814 10%, rgba(255, 255, 255, 0.85) 48%, transparent 70%, transparent 60%, transparent);
+    }
+    .custom-gradient-bottom {
+        background: linear-gradient(to bottom, transparent, transparent 60%, #0408147e, #040814);
+        background-position: bottom;
+    }
+
+    .custom-gradient-3 {
+        background: linear-gradient(to bottom, #040814 23%, #040814b0, transparent 80%, transparent);
+    }
+  }
