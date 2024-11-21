@@ -9,13 +9,14 @@ import StarsHotel2 from "../../../assets/invitations/lniuat2024/StarsHotel2.svg"
 import IconLocation from "../../../assets/invitations/lniuat2024/icon-location.svg";
 import IconLocationWeb from "../../../assets/invitations/lniuat2024/icon-location-web.svg";
 import DiscoBall from "../../../assets/invitations/lniuat2024/disco-ball.svg";
+import DiscoBallWeb from "../../../assets/invitations/lniuat2024/disco-ballweb.svg";
 import Traje from "../../../assets/invitations/lniuat2024/traje.svg";
 import Vestido from "../../../assets/invitations/lniuat2024/vestido.svg";
 import Dropbox from "../../../assets/invitations/lniuat2024/dropbox.svg";
-import Hotel from "../../../assets/invitations/lniuat2024/hotel.svg";
 import StarsSec4_1 from "../../../assets/invitations/lniuat2024/stars-sec4-1.svg";
 import StarsSec4_2 from "../../../assets/invitations/lniuat2024/stars-sec4-2.svg";
 import StarsSec4_3 from "../../../assets/invitations/lniuat2024/stars-sec4-3.svg";
+import PopUpImage from "./PopUpImage";
 import Footer from "./Footer";
 import "../lniuat2024/lniuat2024.css";
 
@@ -24,6 +25,7 @@ const Lniuat2024 = ({ primerNombre, primerApellido, index }) => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [selectedPases, setSelectedPases] = useState(0); // Estado para el dropdown
+  const [errorMessage, setErrorMessage] = useState(""); // Estado para manejar errores
   const [isLoading, setIsLoading] = useState(false);
   const [isMd, setIsMd] = useState(false);
   const [countdown, setCountdown] = useState({
@@ -88,6 +90,12 @@ const Lniuat2024 = ({ primerNombre, primerApellido, index }) => {
   }, []);
 
   const handleConfirm = async () => {
+    if (!selectedPases || selectedPases === 0) {
+      setErrorMessage("Por favor, selecciona el número de pases.");
+      return;
+    }
+    setErrorMessage(""); // Limpiar error si todo está bien
+
     try {
       setIsLoading(true);
       await axios.put(
@@ -256,7 +264,7 @@ const Lniuat2024 = ({ primerNombre, primerApellido, index }) => {
           </p>
         </div>
 
-        <div className="z-10 w-full max-w-sm md:max-w-3xl text-center">
+        <div className="relative z-10 w-full max-w-sm md:max-w-3xl text-center">
           <p className="py-1 text-white font-qanect text-3xl md:hidden">
             Hotel HS HOTSSON
           </p>
@@ -278,24 +286,25 @@ const Lniuat2024 = ({ primerNombre, primerApellido, index }) => {
           </p>
           {/* Web */}
           <p className="py-6 text-white font-playfair text-3xl hidden md:block">
-            Ave. Fundadoers, C.P 1000 Col, Valle <br />
+            Ave. Fundadores, C.P 1000 Col, Valle <br />
             del Mirador, 64750 Monterrey, N.L.
           </p>
 
-          <div className="absolute inset-0 flex items-center justify-center">
+          {/* Estrellas */}
+          <div className="absolute inset-0 flex items-center justify-center z-0">
             <img
               src={StarsHotel1}
               alt="StarsHotel1"
-              className="absolute bottom-[40%] left-[20px] md:bottom-[50%] md:left-[28%] transform w-8 md:w-14"
+              className="absolute bottom-[63%] left-[2%] md:bottom-[55%] md:left-[0%] transform w-8 md:w-14 pointer-events-none"
             />
             <img
               src={StarsHotel2}
               alt="StarsHotel2"
-              className="absolute top-[31%] right-[30px] md:right-[30%] transform w-5 md:w-10"
+              className="absolute top-[-15%] right-[2%] md:top-[-15%] md:right-[0%] transform w-5 md:w-10 pointer-events-none"
             />
           </div>
 
-          <div className="flex justify-center items-center my-32 sm:my-16">
+          <div className="relative z-10 flex justify-center items-center my-32 sm:my-16">
             <a
               href="https://www.google.com/maps/place/HS+HOTSSON+Hotel+Tampico/@22.2404952,-97.905197,13z/data=!4m13!1m2!2m1!1sHotel+HS+Hotsson+Salon+Esmeralda+89140+Tampico+Tamps!3m9!1s0x85d7f9ffbbab4b75:0x3a49defb532f68e4!5m2!4m1!1i2!8m2!3d22.2404952!4d-97.8701781!15sCjRIb3RlbCBIUyBIb3Rzc29uIFNhbG9uIEVzbWVyYWxkYSA4OTE0MCBUYW1waWNvIFRhbXBzIgOIAQGSAQVob3RlbOABAA!16s%2Fg%2F11btx0fxww?entry=ttu&g_ep=EgoyMDI0MTExMS4wIKXMDSoASAFQAw%3D%3D"
               target="_blank"
@@ -317,27 +326,33 @@ const Lniuat2024 = ({ primerNombre, primerApellido, index }) => {
 
       {/* Cuarta sección */}
       <div className="relative custom-gradient-4 min-h-screen flex flex-col justify-between items-center bg-cover bg-no-repeat h-auto px-4">
-        <div className="absolute inset-4 bg-hbg4 bg-cover"></div>
-        <div className="absolute left-0">
+        <div className="absolute inset-4 md:inset-0 md:inset-x-[30%] bg-hbg4 md:bg-hbg4web bg-cover md:bg-bottom"></div>
+        <div className="absolute custom-gradient-4"></div>
+        <div className="absolute left-0 md:hidden">
           <img src={DiscoBall} alt="Disco ball" className="w-[45%] h-full" />
         </div>
+        <div className="absolute left-[30%] hidden md:flex">
+          <img src={DiscoBallWeb} alt="Disco ball" className="w-[75%] h-full" />
+        </div>
 
-        <div className="z-10 w-full max-w-sm text-right pt-12">
-          <p className="font-playfair text-xl text-[#97989D]">
-            Dress code: <strong className="font-qanect text-xl text-black ml-4 mr-4">Formal</strong>
+        <div className="z-10 w-full max-w-sm md:max-w-xl text-right pt-12 md:pt-24">
+          <p className="font-playfair text-xl md:text-2xl text-[#97989D]">
+            Dress code: <strong className="font-qanect text-black ml-4 mr-4">Formal</strong>
           </p>
-          <div className="flex justify-end mt-2 space-x-2">
-            <img src={Traje} alt="Traje" className="w-[13.5%]" />
-            <img src={Vestido} alt="Vestido" className="w-[13.5%]" />
+          <div className="flex justify-end mt-2 md:mt-4 space-x-2 md:mr-2">
+            <img src={Traje} alt="Traje" className="w-[13.5%] md:w-[9%]" />
+            <img src={Vestido} alt="Vestido" className="w-[13.5%] md:w-[9%]" />
           </div>
 
-          <p className="font-playfair text-xl text-[#97989D] text-center ml-[6.5rem] mt-[5.6rem] leading-none">
-            Este día no seria el mismo <br /> sin tu presencia.
-          </p>
-          <p className="text-3xl font-qanect text-center mt-10">
+          <div className="flex flex-col items-center md:items-end">
+            <p className="font-playfair text-xl text-[#97989D] text-center ml-[6.5rem] md:ml-0 mt-[5.6rem] leading-none">
+              Este día no seria el mismo <br /> sin tu presencia.
+            </p>
+          </div>
+          <p className="text-3xl md:text-5xl font-qanect text-center mt-10 md:mt-20">
             Confirmación de <br /> asistencia
           </p>
-          <div className="flex flex-col items-center mt-4">
+          <div className="flex flex-col items-center mt-4 md:hidden">
             <div className="relative mb-4">
               <select
                 id="pases-select"
@@ -358,6 +373,10 @@ const Lniuat2024 = ({ primerNombre, primerApellido, index }) => {
                 />
               )}
             </div>
+            {/* Mensaje de error */}
+            {errorMessage && (
+              <p className="text-red-500 py-3 px-3 font-bison text-lg bg-white/75 rounded-xl">{errorMessage}</p>
+            )}
 
             <button
               onClick={handleConfirm}
@@ -367,23 +386,46 @@ const Lniuat2024 = ({ primerNombre, primerApellido, index }) => {
               <span>{isLoading ? 'Confirmando...' : 'Confirmar'}</span>
             </button>
           </div>
+          {/* Web */}
+          <div className="flex-row items-center content-center justify-around mt-4 hidden md:flex">
+            <div className="relative mb-4">
+              <select
+                id="pases-select"
+                value={selectedPases}
+                onChange={(e) => setSelectedPases(Number(e.target.value))}
+                className="block w-full px-6 pr-14 py-1 border-2 border-black rounded-lg appearance-none bg-white bg-opacity-65 text-black font-bison text-2xl md:text-xl"
+              >
+                <option value="" disabled selected>Cantidad de pases a confirmar</option>
+                {[...Array(data.invitado.cantidadPases).keys()].map((_, index) => (
+                  <option key={index + 1} value={index + 1}>{index + 1}</option>
+                ))}
+              </select>
+              {selectedPases == null && (
+                <img
+                  src={Dropbox}
+                  alt="Dropbox icon"
+                  className="absolute right-4 top-1/2 transform -translate-y-1/2 pointer-events-none w-5"
+                />
+              )}
+            </div>
+            {/* Mensaje de error */}
+            {errorMessage && (
+              <p className="text-red-500 py-3 px-2 font-bison text-lg bg-white/75 rounded-xl">{errorMessage}</p>
+            )}
+
+            <div className="mb-4">
+              <button
+                onClick={handleConfirm}
+                className="flex items-center justify-center space-x-2 bg-black/70 text-white py-2 px-12 rounded-full hover:bg-black/90 transition duration-300 font-qanect"
+                disabled={isLoading}
+              >
+                <span>{isLoading ? 'Confirmando...' : 'Confirmar'}</span>
+              </button>
+            </div>
+          </div>
         </div>
 
-        <div className="z-10 max-w-sm text-right pb-10">
-          <a
-            href="https://google.com"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="flex items-center justify-center space-x-4 bg-black/70 text-white py-4 px-5 rounded-full hover:bg-black/90 transition duration-300 font-qanect pr-4"
-          >
-            <img
-              src={Hotel}
-              alt="Icono de hotel"
-              className="w-auto h-6 sm:h-5"
-            />
-            <span>Información del hospedaje</span>
-          </a>
-        </div>
+        <PopUpImage />
 
       </div>
 
@@ -392,39 +434,43 @@ const Lniuat2024 = ({ primerNombre, primerApellido, index }) => {
         <div className="relative bg-[#040814] min-h-screen flex flex-col justify-between items-center bg-cover bg-no-repeat h-auto px-4">
           <div className="absolute bg-[#040814] -inset-1"></div>
           {/* Primera subsección */}
-          <div className="z-10 w-full max-w-sm text-center pt-12">
-            <p className="text-[1.7rem] sm:text-4xl font-qanect text-white">Galeria de fotos</p>
-            <p className="font-playfair text-white mt-4">
-              Momentos que marcaron este viaje y que ahora <br /> comparto con quienes lo hicieron posible.
+          <div className="z-10 w-full max-w-sm md:max-w-2xl text-center pt-12">
+            <p className="text-[1.7rem] md:text-5xl sm:text-4xl font-qanect text-white">Galeria de fotos</p>
+            <p className="font-playfair text-white mt-4 md:text-xl">
+              Momentos que marcaron este viaje y que ahora <br className="md:hidden" /> comparto con quienes lo hicieron posible.
             </p>
             <div className="absolute inset-0 flex justify-center">
               <img
                 src={StarsSec4_1}
                 alt="Stars1"
-                className="absolute top-[45px] left-[20px] transform w-6 sm:w-5"
+                className="absolute top-[45px] md:top-[2%] left-[20px] md:left-[32%] transform w-6 md:w-10"
               />
               <img
                 src={StarsSec4_2}
                 alt="Stars1"
-                className="absolute top-[40px] right-[20px] transform w-6 sm:w-5"
+                className="absolute top-[40px] md:top-[2%] right-[20px] md:right-[32%] transform w-6 md:w-8"
               />
             </div>
           </div>
 
           {/* Segunda subsección - Galería de fotos */}
           <div
-            className={`z-10 w-full max-w-3xl grid gap-4 mt-8 px-2 pb-32 ${data.graduado.imagenes.length <= 5 ? `grid-cols-${data.graduado.imagenes.length}` : 'grid-cols-5'
-              }`}
+            className="z-10 w-full max-w-sm md:max-w-2xl flex flex-wrap gap-4 mt-8 md:mt-16 px-2 pb-32"
           >
             {data.graduado.imagenes.slice(0, 5).map((imagen, index) => (
-              <img key={index} src={imagen} alt={`Galeria ${index + 1}`} className="w-full h-auto object-cover" />
+              <img
+                key={index}
+                src={imagen}
+                alt={`Galeria ${index + 1}`}
+                className="w-auto h-auto object-cover"
+              />
             ))}
           </div>
           <div className="absolute inset-0 flex justify-center">
             <img
               src={StarsSec4_3}
               alt="Stars1"
-              className="absolute bottom-[40px] left-[30px] transform w-10 sm:w-5"
+              className="absolute bottom-[40px] md:bottom-[5%] left-[30px] md:left-[32.5%] transform w-10 md:w-10"
             />
           </div>
         </div>

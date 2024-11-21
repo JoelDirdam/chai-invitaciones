@@ -4,7 +4,7 @@ import Chaimanzana from '../../../assets/invitations/lniuat2024/footer/chaimanza
 const Footer = () => {
     return (
         <div className="footer text-center px-6 bg-white">
-            <div className="max-w-screen-xl mx-auto flex justify-between items-center py-8">
+            <div className="max-w-xl md:max-w-2xl mx-auto flex justify-between items-center md:items-end py-8">
                 {/* Texto alineado a la izquierda y ocupando más espacio */}
                 <div className="flex-[3] text-left text-[#97989D]">
                     <p className='font-playfair text-lg leading-none'>

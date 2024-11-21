@@ -1,6 +1,8 @@
-body {
+html, body {
+    margin: 0;
+    padding: 0;
     overflow-x: hidden;
-}
+  }
 
 .custom-gradient-1 {
     background: linear-gradient(to bottom, transparent, transparent 2%, #040814 90%);
@@ -37,5 +39,9 @@ body {
 
     .custom-gradient-3 {
         background: linear-gradient(to bottom, #040814 23%, #040814b0, transparent 80%, transparent);
+    }
+
+    .custom-gradient-4 {
+        background: linear-gradient(to bottom, transparent 30%, white 40%,#0408149c, #040814 75%);
     }
   }

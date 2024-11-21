@@ -13,6 +13,7 @@ module.exports = {
         'hbg3': "url('/src/assets/invitations/lniuat2024/bg3.svg')",
         'hbg3web': "url('/src/assets/invitations/lniuat2024/bg3web.svg')",
         'hbg4': "url('/src/assets/invitations/lniuat2024/bg4.svg')",
+        'hbg4web': "url('/src/assets/invitations/lniuat2024/bg4web.svg')",
       },
       fontFamily: {
         bison: ['Bison', 'sans-serif'],
