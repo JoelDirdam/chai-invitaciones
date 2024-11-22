@@ -60,10 +60,10 @@ const Lniuat2024 = ({ primerNombre, primerApellido, index }) => {
     };
 
     handleResize(); // Verifica inicialmente el tamaño de la pantalla
-    window.addEventListener('resize', handleResize); // Escucha cambios de tamaño
+    window.addEventListener("resize", handleResize); // Escucha cambios de tamaño
 
     return () => {
-      window.removeEventListener('resize', handleResize); // Limpia el evento
+      window.removeEventListener("resize", handleResize); // Limpia el evento
     };
   }, [primerNombre, primerApellido, index]);
 
@@ -76,9 +76,15 @@ const Lniuat2024 = ({ primerNombre, primerApellido, index }) => {
 
       if (distance > 0) {
         const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-        const hours = String(Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60))).padStart(2, '0');
-        const minutes = String(Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60))).padStart(2, '0');
-        const seconds = String(Math.floor((distance % (1000 * 60)) / 1000)).padStart(2, '0');
+        const hours = String(
+          Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60))
+        ).padStart(2, "0");
+        const minutes = String(
+          Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60))
+        ).padStart(2, "0");
+        const seconds = String(
+          Math.floor((distance % (1000 * 60)) / 1000)
+        ).padStart(2, "0");
 
         setCountdown({ days, hours, minutes, seconds });
       } else {
@@ -101,15 +107,73 @@ const Lniuat2024 = ({ primerNombre, primerApellido, index }) => {
       await axios.put(
         `${process.env.REACT_APP_BACKEND_URL}/invitations/lniuat2024/actualizar-estado/${primerNombre},${primerApellido},${index}`,
         {
-          nuevoEstado: 'confirmada',
+          nuevoEstado: "confirmada",
           cantidadPasesInd: selectedPases,
         }
       );
-      alert('Confirmación exitosa');
+      alert("Confirmación exitosa");
     } catch (error) {
-      alert('Error al confirmar la invitación');
+      alert("Error al confirmar la invitación");
     } finally {
       setIsLoading(false);
+    }
+  };
+
+  const formatNombre = (nombreCompleto) => {
+    const palabras = nombreCompleto.split(" ");
+    const totalPalabras = palabras.length;
+  
+    if (totalPalabras === 2) {
+      //Profesores
+      return (
+        <>
+          <p className="py-2 md:py-6 font-qanect text-white text-3xl md:text-5xl" 
+           style={isMd ? {lineHeight: "4rem"} : {}}>
+            Licenciatura en Negocios Internacionales
+          </p>
+        </>
+      );
+    } else if (totalPalabras === 3) {
+      // Si hay 3 palabras, muestra la primera y luego el resto en una nueva línea
+      return (
+        <>
+          <p className="font-playfair text-white text-lg md:text-4xl">
+            {data.graduado.genero === "masculino" ? (
+              <div>Licenciado en Negocios Internacionales</div>
+            ) : (
+              <div>Licenciada en Negocios Internacionales</div>
+            )}
+          </p>
+          <p className="py-2 md:py-6 font-qanect text-white text-3xl md:text-5xl" 
+           style={isMd ? {lineHeight: "4rem"} : {}}>
+            {palabras[0]}
+            <br />
+            {palabras.slice(1).join(" ")}
+          </p>
+        </>
+      );
+    } else if (totalPalabras === 4) {
+      // Si hay 4 palabras, divide en dos líneas, dos palabras cada una
+      return (
+        <>
+          <p className="font-playfair text-white text-lg md:text-4xl">
+            {data.graduado.genero === "masculino" ? (
+              <div>Licenciado en Negocios Internacionales</div>
+            ) : (
+              <div>Licenciada en Negocios Internacionales</div>
+            )}
+          </p>
+          <p className="py-2 md:py-6 font-qanect text-white text-3xl md:text-5xl" 
+           style={isMd ? {lineHeight: "4rem"} : {}}>
+            {palabras.slice(0, 2).join(" ")}
+            <br />
+            {palabras.slice(2).join(" ")}
+          </p>
+        </>
+      );
+    } else {
+      // Para otros casos, muestra el nombre completo tal cual
+      return nombreCompleto;
     }
   };
 
@@ -134,22 +198,7 @@ const Lniuat2024 = ({ primerNombre, primerApellido, index }) => {
         </div>
 
         <div className="z-10 w-full max-w-sm md:max-w-2xl text-center">
-          <p className="font-playfair text-white text-lg md:text-4xl">
-            {data.graduado.genero === "masculino" ? (
-              <div>Licenciado en Negocios Internacionales</div>
-            ) : (
-              <div>Licenciada en Negocios Internacionales</div>
-            )}
-          </p>
-          <p className="py-2 md:py-6 font-qanect text-white text-3xl md:text-5xl">
-            {data.graduado.nombreCompleto.split(' ').slice(0, 2).join(' ')}
-            {data.graduado.nombreCompleto.split(' ').length > 2 && (
-              <>
-                <br />
-                {data.graduado.nombreCompleto.split(' ').slice(2).join(' ')}
-              </>
-            )}
-          </p>
+          {formatNombre(data.graduado.nombreCompleto)}
         </div>
 
         <div className="z-10 w-full text-center mb-4">
@@ -221,7 +270,7 @@ const Lniuat2024 = ({ primerNombre, primerApellido, index }) => {
             <img
               src={Stars2}
               alt="Stars2"
-              className="absolute top-[310px] right-[650px] transform w-6 hidden md:flex"
+              className="absolute top-[38%] right-[36%] transform w-6 hidden md:flex"
             />
           </div>
         </div>
@@ -260,7 +309,8 @@ const Lniuat2024 = ({ primerNombre, primerApellido, index }) => {
 
         <div className="z-10 w-full max-w-sm md:max-w-3xl text-right md:text-center pt-4">
           <p className="text-white font-playfair text-lg md:text-2xl">
-            Y quiero reunirme con ustedes en un lugar que honre <br className="hidden md:flex" /> cada paso recorrido.
+            Y quiero reunirme con ustedes en un lugar que honre{" "}
+            <br className="hidden md:flex" /> cada paso recorrido.
           </p>
         </div>
 
@@ -275,7 +325,7 @@ const Lniuat2024 = ({ primerNombre, primerApellido, index }) => {
               alt="Icono de ubicación"
               className="w-8 h-auto md:inline-block"
             />
-            Hotel Hilton
+            Hotel HS HOTSSON
           </p>
           <p className="py-1 text-white font-playfair text-2xl md:hidden">
             Salon Esmeralda
@@ -286,8 +336,11 @@ const Lniuat2024 = ({ primerNombre, primerApellido, index }) => {
           </p>
           {/* Web */}
           <p className="py-6 text-white font-playfair text-3xl hidden md:block">
-            Ave. Fundadores, C.P 1000 Col, Valle <br />
-            del Mirador, 64750 Monterrey, N.L.
+            Salon Esmeralda
+            <br />
+            Av. Miguel Hidalgo 2000, Smith,
+            <br />
+            89140, Tampico, Tamps.
           </p>
 
           {/* Estrellas */}
@@ -337,7 +390,8 @@ const Lniuat2024 = ({ primerNombre, primerApellido, index }) => {
 
         <div className="z-10 w-full max-w-sm md:max-w-xl text-right pt-12 md:pt-24">
           <p className="font-playfair text-xl md:text-2xl text-[#97989D]">
-            Dress code: <strong className="font-qanect text-black ml-4 mr-4">Formal</strong>
+            Dress code:{" "}
+            <strong className="font-qanect text-black ml-4 mr-4">Formal</strong>
           </p>
           <div className="flex justify-end mt-2 md:mt-4 space-x-2 md:mr-2">
             <img src={Traje} alt="Traje" className="w-[13.5%] md:w-[9%]" />
@@ -360,10 +414,16 @@ const Lniuat2024 = ({ primerNombre, primerApellido, index }) => {
                 onChange={(e) => setSelectedPases(Number(e.target.value))}
                 className="block w-full px-6 pr-14 py-2 border-2 border-black rounded-lg appearance-none bg-white bg-opacity-65 text-black font-bison text-2xl"
               >
-                <option value="" disabled selected>Cantidad de pases a confirmar</option>
-                {[...Array(data.invitado.cantidadPases).keys()].map((_, index) => (
-                  <option key={index + 1} value={index + 1}>{index + 1}</option>
-                ))}
+                <option value="" disabled selected>
+                  Cantidad de pases a confirmar
+                </option>
+                {[...Array(data.invitado.cantidadPases).keys()].map(
+                  (_, index) => (
+                    <option key={index + 1} value={index + 1}>
+                      {index + 1}
+                    </option>
+                  )
+                )}
               </select>
               {selectedPases == null && (
                 <img
@@ -375,7 +435,9 @@ const Lniuat2024 = ({ primerNombre, primerApellido, index }) => {
             </div>
             {/* Mensaje de error */}
             {errorMessage && (
-              <p className="text-red-500 py-3 px-3 font-bison text-lg bg-white/75 rounded-xl">{errorMessage}</p>
+              <p className="text-red-500 py-3 px-3 font-bison text-lg bg-white/75 rounded-xl">
+                {errorMessage}
+              </p>
             )}
 
             <button
@@ -383,7 +445,7 @@ const Lniuat2024 = ({ primerNombre, primerApellido, index }) => {
               className="flex items-center justify-center space-x-2 bg-black/70 text-white py-3 px-14 rounded-full hover:bg-black/90 transition duration-300 font-qanect sm:py-3 sm:px-4"
               disabled={isLoading}
             >
-              <span>{isLoading ? 'Confirmando...' : 'Confirmar'}</span>
+              <span>{isLoading ? "Confirmando..." : "Confirmar"}</span>
             </button>
           </div>
           {/* Web */}
@@ -395,10 +457,16 @@ const Lniuat2024 = ({ primerNombre, primerApellido, index }) => {
                 onChange={(e) => setSelectedPases(Number(e.target.value))}
                 className="block w-full px-6 pr-14 py-1 border-2 border-black rounded-lg appearance-none bg-white bg-opacity-65 text-black font-bison text-2xl md:text-xl"
               >
-                <option value="" disabled selected>Cantidad de pases a confirmar</option>
-                {[...Array(data.invitado.cantidadPases).keys()].map((_, index) => (
-                  <option key={index + 1} value={index + 1}>{index + 1}</option>
-                ))}
+                <option value="" disabled selected>
+                  Cantidad de pases a confirmar
+                </option>
+                {[...Array(data.invitado.cantidadPases).keys()].map(
+                  (_, index) => (
+                    <option key={index + 1} value={index + 1}>
+                      {index + 1}
+                    </option>
+                  )
+                )}
               </select>
               {selectedPases == null && (
                 <img
@@ -408,10 +476,6 @@ const Lniuat2024 = ({ primerNombre, primerApellido, index }) => {
                 />
               )}
             </div>
-            {/* Mensaje de error */}
-            {errorMessage && (
-              <p className="text-red-500 py-3 px-2 font-bison text-lg bg-white/75 rounded-xl">{errorMessage}</p>
-            )}
 
             <div className="mb-4">
               <button
@@ -419,14 +483,20 @@ const Lniuat2024 = ({ primerNombre, primerApellido, index }) => {
                 className="flex items-center justify-center space-x-2 bg-black/70 text-white py-2 px-12 rounded-full hover:bg-black/90 transition duration-300 font-qanect"
                 disabled={isLoading}
               >
-                <span>{isLoading ? 'Confirmando...' : 'Confirmar'}</span>
+                <span>{isLoading ? "Confirmando..." : "Confirmar"}</span>
               </button>
             </div>
           </div>
+
+          {/* Mensaje de error */}
+          {errorMessage && (
+            <p className="text-red-500 py-3 px-2 font-bison text-lg bg-white/75 rounded-xl text-center">
+              {errorMessage}
+            </p>
+          )}
         </div>
 
         <PopUpImage />
-
       </div>
 
       {/* Quinta sección */}
@@ -435,9 +505,13 @@ const Lniuat2024 = ({ primerNombre, primerApellido, index }) => {
           <div className="absolute bg-[#040814] -inset-1"></div>
           {/* Primera subsección */}
           <div className="z-10 w-full max-w-sm md:max-w-2xl text-center pt-12">
-            <p className="text-[1.7rem] md:text-5xl sm:text-4xl font-qanect text-white">Galeria de fotos</p>
+            <p className="text-[1.7rem] md:text-5xl sm:text-4xl font-qanect text-white">
+              Galeria de fotos
+            </p>
             <p className="font-playfair text-white mt-4 md:text-xl">
-              Momentos que marcaron este viaje y que ahora <br className="md:hidden" /> comparto con quienes lo hicieron posible.
+              Momentos que marcaron este viaje y que ahora{" "}
+              <br className="md:hidden" /> comparto con quienes lo hicieron
+              posible.
             </p>
             <div className="absolute inset-0 flex justify-center">
               <img
@@ -454,9 +528,7 @@ const Lniuat2024 = ({ primerNombre, primerApellido, index }) => {
           </div>
 
           {/* Segunda subsección - Galería de fotos */}
-          <div
-            className="z-10 w-full max-w-sm md:max-w-2xl flex flex-wrap gap-4 mt-8 md:mt-16 px-2 pb-32"
-          >
+          <div className="z-10 w-full max-w-sm md:max-w-2xl flex flex-wrap gap-4 mt-8 md:mt-16 px-2 pb-32">
             {data.graduado.imagenes.slice(0, 5).map((imagen, index) => (
               <img
                 key={index}
