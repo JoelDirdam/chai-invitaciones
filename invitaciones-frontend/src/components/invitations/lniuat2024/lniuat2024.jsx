@@ -209,7 +209,7 @@ const Lniuat2024 = ({ primerNombre, primerApellido, index }) => {
             <img
               src={Stars1}
               alt="Stars1"
-              className="absolute bottom-[25px] right-[340px] transform w-7 sm:w-5"
+              className="absolute bottom-[3%] right-[69%] transform w-7 sm:w-5"
             />
           </div>
         </div>
@@ -228,7 +228,7 @@ const Lniuat2024 = ({ primerNombre, primerApellido, index }) => {
             <img
               src={Stars1}
               alt="Stars1"
-              className="absolute top-[0px] left-[30%] transform sm:w-90"
+              className="absolute top-[0%] left-[5%] transform sm:w-90"
             />
           </div>
           <div className="flex justify-center space-x-3 md:space-x-6 text-white font-qanect text-4xl md:text-8xl">
@@ -265,7 +265,7 @@ const Lniuat2024 = ({ primerNombre, primerApellido, index }) => {
             <img
               src={Stars2}
               alt="Stars2"
-              className="absolute top-[90px] right-[30px] transform w-4 md:hidden"
+              className="absolute top-[12%] right-[15%] transform w-4 md:hidden"
             />
             <img
               src={Stars2}
