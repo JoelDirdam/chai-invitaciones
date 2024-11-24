@@ -122,13 +122,13 @@ const Lniuat2024 = ({ primerNombre, primerApellido, index }) => {
   const formatNombre = (nombreCompleto) => {
     const palabras = nombreCompleto.split(" ");
     const totalPalabras = palabras.length;
-  
+
     if (totalPalabras === 2) {
       //Profesores
       return (
         <>
-          <p className="py-2 md:py-6 font-qanect text-white text-3xl md:text-5xl" 
-           style={isMd ? {lineHeight: "4rem"} : {}}>
+          <p className="py-2 md:py-6 font-qanect text-white text-3xl md:text-5xl"
+            style={isMd ? { lineHeight: "4rem" } : {}}>
             Licenciatura en Negocios Internacionales
           </p>
         </>
@@ -144,8 +144,8 @@ const Lniuat2024 = ({ primerNombre, primerApellido, index }) => {
               <div>Licenciada en Negocios Internacionales</div>
             )}
           </p>
-          <p className="py-2 md:py-6 font-qanect text-white text-3xl md:text-5xl" 
-           style={isMd ? {lineHeight: "4rem"} : {}}>
+          <p className="py-2 md:py-6 font-qanect text-white text-3xl md:text-5xl"
+            style={isMd ? { lineHeight: "4rem" } : {}}>
             {palabras[0]}
             <br />
             {palabras.slice(1).join(" ")}
@@ -163,8 +163,8 @@ const Lniuat2024 = ({ primerNombre, primerApellido, index }) => {
               <div>Licenciada en Negocios Internacionales</div>
             )}
           </p>
-          <p className="py-2 md:py-6 font-qanect text-white text-3xl md:text-5xl" 
-           style={isMd ? {lineHeight: "4rem"} : {}}>
+          <p className="py-2 md:py-6 font-qanect text-white text-3xl md:text-5xl"
+            style={isMd ? { lineHeight: "4rem" } : {}}>
             {palabras.slice(0, 2).join(" ")}
             <br />
             {palabras.slice(2).join(" ")}
@@ -228,7 +228,7 @@ const Lniuat2024 = ({ primerNombre, primerApellido, index }) => {
             <img
               src={Stars1}
               alt="Stars1"
-              className="absolute top-[0%] left-[5%] transform sm:w-90"
+              className="absolute top-[0%] left-[25%] transform sm:w-90"
             />
           </div>
           <div className="flex justify-center space-x-3 md:space-x-6 text-white font-qanect text-4xl md:text-8xl">
@@ -403,97 +403,108 @@ const Lniuat2024 = ({ primerNombre, primerApellido, index }) => {
               Este día no seria el mismo <br /> sin tu presencia.
             </p>
           </div>
-          <p className="text-3xl md:text-5xl font-qanect text-center mt-10 md:mt-20">
-            Confirmación de <br /> asistencia
-          </p>
-          <div className="flex flex-col items-center mt-4 md:hidden">
-            <div className="relative mb-4">
-              <select
-                id="pases-select"
-                value={selectedPases}
-                onChange={(e) => setSelectedPases(Number(e.target.value))}
-                className="block w-full px-6 pr-14 py-2 border-2 border-black rounded-lg appearance-none bg-white bg-opacity-65 text-black font-bison text-2xl"
-              >
-                <option value="" disabled selected>
-                  Cantidad de pases a confirmar
-                </option>
-                {[...Array(data.invitado.cantidadPases).keys()].map(
-                  (_, index) => (
-                    <option key={index + 1} value={index + 1}>
-                      {index + 1}
-                    </option>
-                  )
-                )}
-              </select>
-              {selectedPases == null && (
-                <img
-                  src={Dropbox}
-                  alt="Dropbox icon"
-                  className="absolute right-4 top-1/2 transform -translate-y-1/2 pointer-events-none w-5"
-                />
-              )}
-            </div>
-            {/* Mensaje de error */}
-            {errorMessage && (
-              <p className="text-red-500 py-3 px-3 font-bison text-lg bg-white/75 rounded-xl">
-                {errorMessage}
+          {data.invitado.cantidadPasesInd === 0 ? (
+            <>
+              <p className="text-3xl md:text-5xl font-qanect text-center mt-10 md:mt-20">
+                Confirmación de <br /> asistencia
               </p>
-            )}
-
-            <button
-              onClick={handleConfirm}
-              className="flex items-center justify-center space-x-2 bg-black/70 text-white py-3 px-14 rounded-full hover:bg-black/90 transition duration-300 font-qanect sm:py-3 sm:px-4"
-              disabled={isLoading}
-            >
-              <span>{isLoading ? "Confirmando..." : "Confirmar"}</span>
-            </button>
-          </div>
-          {/* Web */}
-          <div className="flex-row items-center content-center justify-around mt-4 hidden md:flex">
-            <div className="relative mb-4">
-              <select
-                id="pases-select"
-                value={selectedPases}
-                onChange={(e) => setSelectedPases(Number(e.target.value))}
-                className="block w-full px-6 pr-14 py-1 border-2 border-black rounded-lg appearance-none bg-white bg-opacity-65 text-black font-bison text-2xl md:text-xl"
-              >
-                <option value="" disabled selected>
-                  Cantidad de pases a confirmar
-                </option>
-                {[...Array(data.invitado.cantidadPases).keys()].map(
-                  (_, index) => (
-                    <option key={index + 1} value={index + 1}>
-                      {index + 1}
+              <div className="flex flex-col items-center mt-4 md:hidden">
+                <div className="relative mb-4">
+                  <select
+                    id="pases-select"
+                    value={selectedPases}
+                    onChange={(e) => setSelectedPases(Number(e.target.value))}
+                    className="block w-full px-6 pr-14 py-2 border-2 border-black rounded-lg appearance-none bg-white bg-opacity-65 text-black font-bison text-2xl"
+                  >
+                    <option value="" disabled selected>
+                      Cantidad de pases a confirmar
                     </option>
-                  )
+                    {[...Array(data.invitado.cantidadPases).keys()].map(
+                      (_, index) => (
+                        <option key={index + 1} value={index + 1}>
+                          {index + 1}
+                        </option>
+                      )
+                    )}
+                  </select>
+                  {selectedPases == null && (
+                    <img
+                      src={Dropbox}
+                      alt="Dropbox icon"
+                      className="absolute right-4 top-1/2 transform -translate-y-1/2 pointer-events-none w-5"
+                    />
+                  )}
+                </div>
+                {/* Mensaje de error */}
+                {errorMessage && (
+                  <p className="text-red-500 py-3 px-3 font-bison text-lg bg-white/75 rounded-xl">
+                    {errorMessage}
+                  </p>
                 )}
-              </select>
-              {selectedPases == null && (
-                <img
-                  src={Dropbox}
-                  alt="Dropbox icon"
-                  className="absolute right-4 top-1/2 transform -translate-y-1/2 pointer-events-none w-5"
-                />
+
+                <button
+                  onClick={handleConfirm}
+                  className="flex items-center justify-center space-x-2 bg-black/70 text-white py-3 px-14 rounded-full hover:bg-black/90 transition duration-300 font-qanect sm:py-3 sm:px-4"
+                  disabled={isLoading}
+                >
+                  <span>{isLoading ? "Confirmando..." : "Confirmar"}</span>
+                </button>
+              </div>
+              {/* Web */}
+              <div className="flex-row items-center content-center justify-around mt-4 hidden md:flex">
+                <div className="relative mb-4">
+                  <select
+                    id="pases-select"
+                    value={selectedPases}
+                    onChange={(e) => setSelectedPases(Number(e.target.value))}
+                    className="block w-full px-6 pr-14 py-1 border-2 border-black rounded-lg appearance-none bg-white bg-opacity-65 text-black font-bison text-2xl md:text-xl"
+                  >
+                    <option value="" disabled selected>
+                      Cantidad de pases a confirmar
+                    </option>
+                    {[...Array(data.invitado.cantidadPases).keys()].map(
+                      (_, index) => (
+                        <option key={index + 1} value={index + 1}>
+                          {index + 1}
+                        </option>
+                      )
+                    )}
+                  </select>
+                  {selectedPases == null && (
+                    <img
+                      src={Dropbox}
+                      alt="Dropbox icon"
+                      className="absolute right-4 top-1/2 transform -translate-y-1/2 pointer-events-none w-5"
+                    />
+                  )}
+                </div>
+
+                <div className="mb-4">
+                  <button
+                    onClick={handleConfirm}
+                    className="flex items-center justify-center space-x-2 bg-black/70 text-white py-2 px-12 rounded-full hover:bg-black/90 transition duration-300 font-qanect"
+                    disabled={isLoading}
+                  >
+                    <span>{isLoading ? "Confirmando..." : "Confirmar"}</span>
+                  </button>
+                </div>
+              </div>
+
+              {/* Mensaje de error */}
+              {errorMessage && (
+                <p className="text-red-500 py-3 px-2 font-bison text-lg bg-white/75 rounded-xl text-center">
+                  {errorMessage}
+                </p>
               )}
-            </div>
-
-            <div className="mb-4">
-              <button
-                onClick={handleConfirm}
-                className="flex items-center justify-center space-x-2 bg-black/70 text-white py-2 px-12 rounded-full hover:bg-black/90 transition duration-300 font-qanect"
-                disabled={isLoading}
-              >
-                <span>{isLoading ? "Confirmando..." : "Confirmar"}</span>
-              </button>
-            </div>
-          </div>
-
-          {/* Mensaje de error */}
-          {errorMessage && (
-            <p className="text-red-500 py-3 px-2 font-bison text-lg bg-white/75 rounded-xl text-center">
-              {errorMessage}
-            </p>
+            </>
+          ) : (
+            <>
+              <p className="text-3xl md:text-5xl font-qanect text-center mt-10 md:mt-20">
+                Confirmados: {data.invitado.cantidadPasesInd}
+              </p>
+            </>
           )}
+
         </div>
 
         <PopUpImage />
@@ -528,16 +539,24 @@ const Lniuat2024 = ({ primerNombre, primerApellido, index }) => {
           </div>
 
           {/* Segunda subsección - Galería de fotos */}
-          <div className="z-10 w-full max-w-sm md:max-w-2xl flex flex-wrap gap-4 mt-8 md:mt-16 px-2 pb-32">
-            {data.graduado.imagenes.slice(0, 5).map((imagen, index) => (
+          <div
+            className={`z-30 w-full max-w-sm md:max-w-2xl gap-4 mt-8 md:mt-16 px-2 pb-32 ${data.graduado.imagenes.length === 1
+              ? 'columns-1 flex justify-center'
+              : data.graduado.imagenes.length === 2
+                ? 'columns-2'
+                : 'columns-3'
+              }`}
+          >
+            {data.graduado.imagenes.slice(0, 6).map((imagen, index) => (
               <img
                 key={index}
                 src={imagen}
                 alt={`Galeria ${index + 1}`}
-                className="w-auto h-auto object-cover"
+                className={`w-full mb-6 break-inside-avoid max-w-[500px]`}
               />
             ))}
           </div>
+          <div className="z-10 w-full max-w-sm md:max-w-3xl text-center hidden md:flex"></div>
           <div className="absolute inset-0 flex justify-center">
             <img
               src={StarsSec4_3}

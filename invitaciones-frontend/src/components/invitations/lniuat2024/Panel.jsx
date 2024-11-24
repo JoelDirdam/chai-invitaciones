@@ -69,7 +69,7 @@ const Panel = () => {
                   Lic. {graduado.nombreCompleto}
                 </div>
                 {selectedGraduado === graduado && (
-                  <ul className="mt-4 space-y-2 bg-gray-50 p-4 rounded-lg">
+                  <ul className="mt-4 space-y-2 bg-gray-100 p-4 rounded-lg">
                     {graduado.arrayInvitados.map((invitado, index) => (
                       <li key={index} className="border-b pb-2 last:border-b-0">
                         <p>
@@ -94,7 +94,7 @@ const Panel = () => {
                                 {" "}
                                 Confirmada{" "}
                                 <FaCheckCircle className="text-green-500" />{" "}
-                                {invitado.cantidadPasesInd >= 0 && (<>{invitado.cantidadPasesInd}/{graduado.cantidadPases}</>)}
+                                {invitado.cantidadPasesInd >= 0 && (<>{invitado.cantidadPasesInd}/{invitado.cantidadPases}</>)}
                               </>
                             )}
                           </span>
