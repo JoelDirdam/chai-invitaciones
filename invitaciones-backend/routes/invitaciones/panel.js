@@ -1,7 +1,15 @@
 const express = require('express');
 const router = express.Router();
 const crypto = require('crypto');
-const Graduado = require('../../models/Graduado');
+const mongoose = require('mongoose');
+const { graduadoSchema } = require('../../models/Graduado');
+
+// Función para obtener el modelo en la base de datos configurada
+const getGraduadoModel = () => {
+  const dbName = process.env.DB_NAME || "test"; // Usa la base configurada en .env
+  const db = mongoose.connection.useDb(dbName); // Cambia dinámicamente de base
+  return db.model("Graduado", graduadoSchema); // Registra el modelo con el esquema
+};
 
 // Middleware para verificar el token en las solicitudes
 router.use((req, res, next) => {
@@ -25,10 +33,11 @@ router.use((req, res, next) => {
 // Ruta para obtener la lista de graduados
 router.get('/graduados', async (req, res) => {
   try {
-    const graduados = await Graduado.find();
+    const Graduado = getGraduadoModel();
+    const graduados = await Graduado.find().sort({ _id: 1 });
     res.status(200).json(graduados);
   } catch (error) {
-    res.status(500).json({ error: 'Error al obtener la lista de graduados' });
+    res.status(500).json({ error: `Error al obtener la lista de graduados ${error}` });
   }
 });
 

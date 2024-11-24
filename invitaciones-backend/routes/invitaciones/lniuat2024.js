@@ -1,34 +1,40 @@
-const express = require('express');
+const express = require("express");
 const router = express.Router();
-const Graduado = require('../../models/Graduado');
+const mongoose = require("mongoose");
+const { graduadoSchema } = require("../../models/Graduado"); // Importa solo el esquema
+
+// Función para obtener el modelo en la base de datos configurada
+const getGraduadoModel = () => {
+  const dbName = process.env.DB_NAME || "test"; // Usa la base configurada en .env
+  const db = mongoose.connection.useDb(dbName); // Cambia dinámicamente de base
+  return db.model("Graduado", graduadoSchema); // Registra el modelo con el esquema
+};
 
 // Obtener información de un invitado específico y del graduado
-router.get('/:primerNombre,:primerApellido,:index', async (req, res) => {
+router.get("/:primerNombre,:primerApellido,:index", async (req, res) => {
   try {
     const { primerNombre, primerApellido, index } = req.params;
-    const nombreCompleto = `${primerNombre.trim()} ${primerApellido.trim()}`.toLowerCase();
+    const Graduado = getGraduadoModel(); // Obtén el modelo desde la base de datos correcta
 
-    // Usar una expresión regular para buscar nombres que contengan tanto el primer nombre como el apellido
-    const regex = new RegExp(`${primerNombre.trim()}.*${primerApellido.trim()}`, 'i');
-    
-    // Buscar el graduado por un nombre que contenga el primer nombre y el apellido
+    const regex = new RegExp(
+      `${primerNombre.trim()}.*${primerApellido.trim()}`,
+      "i"
+    );
     const graduado = await Graduado.findOne({ nombreCompleto: regex });
-    
+
     if (!graduado) {
-      return res.status(404).json({ error: 'Graduado no encontrado' });
+      return res.status(404).json({ error: "Graduado no encontrado" });
     }
 
-    const invitadoIndex = parseInt(index - 1, 10); // Ajuste para que el índice comience en 1
-
+    const invitadoIndex = parseInt(index - 1, 10);
     if (invitadoIndex < 0 || invitadoIndex >= graduado.arrayInvitados.length) {
-      return res.status(400).json({ error: 'Índice de invitado no válido' });
+      return res.status(400).json({ error: "Índice de invitado no válido" });
     }
 
     const invitado = graduado.arrayInvitados[invitadoIndex];
-
-    // Enviar la información del graduado y del invitado
     res.json({
       graduado: {
+        id: graduado._id,
         email: graduado.email,
         nombreCompleto: graduado.nombreCompleto,
         genero: graduado.genero,
@@ -36,55 +42,68 @@ router.get('/:primerNombre,:primerApellido,:index', async (req, res) => {
         numeroLista: graduado.numeroLista,
         adicional: graduado.adicional,
         imagenes: graduado.imagenes,
-        updatedAt: graduado.updatedAt
+        updatedAt: graduado.updatedAt,
       },
-      invitado: invitado
+      invitado: invitado,
     });
   } catch (error) {
-    res.status(500).json({ error: 'Error al buscar el invitado' });
+    res
+      .status(500)
+      .json({ error: `Error al buscar el invitado: ${error.message}` });
   }
 });
 
 // Ruta para actualizar el estado de un invitado específico y la cantidad de pases
-router.put('/actualizar-estado/:primerNombre,:primerApellido,:index', async (req, res) => {
-  try {
-    const { primerNombre, primerApellido, index } = req.params;
-    const { nuevoEstado, cantidadPasesInd } = req.body; // 'nuevoEstado' y 'cantidadPasesInd' se envían en el cuerpo de la petición
-    const nombreCompleto = `${primerNombre.trim()} ${primerApellido.trim()}`.toLowerCase();
+router.put(
+  "/actualizar-estado/:primerNombre,:primerApellido,:index",
+  async (req, res) => {
+    try {
+      const { primerNombre, primerApellido, index } = req.params;
+      const { nuevoEstado, cantidadPasesInd } = req.body;
+      const nombreCompleto =
+        `${primerNombre.trim()} ${primerApellido.trim()}`.toLowerCase();
 
-    // Validar que el estado sea uno de los permitidos
-    if (!['confirmada', 'cancelada'].includes(nuevoEstado)) {
-      return res.status(400).json({ error: 'Estado no válido' });
+      if (!["confirmada", "cancelada"].includes(nuevoEstado)) {
+        return res.status(400).json({ error: "Estado no válido" });
+      }
+
+      const Graduado = getGraduadoModel(); // Obtén el modelo desde la base de datos correcta
+
+      const regex = new RegExp(
+        `${primerNombre.trim()}.*${primerApellido.trim()}`,
+        "i"
+      );
+      const graduado = await Graduado.findOne({ nombreCompleto: regex });
+
+      if (!graduado) {
+        return res.status(404).json({ error: "Graduado no encontrado" });
+      }
+
+      const invitadoIndex = parseInt(index - 1, 10);
+
+      if (
+        invitadoIndex < 0 ||
+        invitadoIndex >= graduado.arrayInvitados.length
+      ) {
+        return res.status(400).json({ error: "Índice de invitado no válido" });
+      }
+
+      graduado.arrayInvitados[invitadoIndex].status = nuevoEstado;
+      graduado.arrayInvitados[invitadoIndex].cantidadPasesInd =
+        cantidadPasesInd;
+
+      await graduado.save();
+
+      res.json({
+        mensaje: "Estado y cantidad de pases actualizados exitosamente",
+        invitado: graduado.arrayInvitados[invitadoIndex],
+      });
+    } catch (error) {
+      res
+        .status(500)
+        .json({ error: "Error al actualizar el estado del invitado" });
     }
-
-    // Usar una expresión regular para buscar nombres que contengan tanto el primer nombre como el apellido
-    const regex = new RegExp(`${primerNombre.trim()}.*${primerApellido.trim()}`, 'i');
-
-    // Buscar el graduado por un nombre que contenga el primer nombre y el apellido
-    const graduado = await Graduado.findOne({ nombreCompleto: regex });
-
-    if (!graduado) {
-      return res.status(404).json({ error: 'Graduado no encontrado' });
-    }
-
-    const invitadoIndex = parseInt(index - 1, 10);
-
-    if (invitadoIndex < 0 || invitadoIndex >= graduado.arrayInvitados.length) {
-      return res.status(400).json({ error: 'Índice de invitado no válido' });
-    }
-
-    // Actualizar el estado y la cantidad de pases del invitado
-    graduado.arrayInvitados[invitadoIndex].status = nuevoEstado;
-    graduado.arrayInvitados[invitadoIndex].cantidadPasesInd = cantidadPasesInd; // Actualiza la cantidad de pases
-
-    // Guardar los cambios en la base de datos
-    await graduado.save();
-
-    res.json({ mensaje: 'Estado y cantidad de pases actualizados exitosamente', invitado: graduado.arrayInvitados[invitadoIndex] });
-  } catch (error) {
-    res.status(500).json({ error: 'Error al actualizar el estado del invitado' });
   }
-});
-
+);
 
 module.exports = router;

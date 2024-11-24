@@ -209,7 +209,7 @@ const Lniuat2024 = ({ primerNombre, primerApellido, index }) => {
             <img
               src={Stars1}
               alt="Stars1"
-              className="absolute bottom-[3%] right-[69%] transform w-7 sm:w-5"
+              className="absolute bottom-[3%] left-[5%] transform w-7 sm:w-5"
             />
           </div>
         </div>
