@@ -30,10 +30,18 @@ html, body {
       background: linear-gradient(to bottom, transparent, transparent 2%, #040814 65%);
     }
     .custom-gradient-2 {
-        background: linear-gradient(to bottom, #040814 10%, rgba(255, 255, 255, 0.85) 48%, transparent 70%, transparent 60%, transparent);
+        background: linear-gradient(
+            to bottom,
+            #040814 0.5%,             /* Color inicial (oscuro) */
+            #3b3b3b 10%,              /* Gris oscuro */
+            #7f7f7f 25%,              /* Gris intermedio */
+            rgba(255, 255, 255, 0.7) 48%, /* Blanco semitransparente */
+            rgba(255, 255, 255, 0.5) 70%, /* Blanco semitransparente */
+            transparent 80%           /* Fin completamente transparente */
+        );
     }
     .custom-gradient-bottom {
-        background: linear-gradient(to bottom, transparent, transparent 60%, #0408147e, #040814);
+        background: linear-gradient(to bottom, transparent, transparent 60%, #0408147e 78%, #040814b7 85%, #040814 98%);
         background-position: bottom;
     }
 

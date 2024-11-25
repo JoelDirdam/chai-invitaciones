@@ -38,6 +38,7 @@ const Lniuat2024 = ({ primerNombre, primerApellido, index }) => {
   //console.log(selectedPases);
 
   useEffect(() => {
+    document.title = "Chaimanzana - LNI UAT 2024"; //Titulo de la pestaña
     const fetchData = async () => {
       try {
         const response = await axios.get(
@@ -128,7 +129,7 @@ const Lniuat2024 = ({ primerNombre, primerApellido, index }) => {
       return (
         <>
           <p className="py-2 md:py-6 font-qanect text-white text-3xl md:text-5xl"
-            style={isMd ? { lineHeight: "4rem" } : {}}>
+            style={isMd ? { lineHeight: "4.5rem" } : {}}>
             Licenciatura en Negocios Internacionales
           </p>
         </>
@@ -145,7 +146,7 @@ const Lniuat2024 = ({ primerNombre, primerApellido, index }) => {
             )}
           </p>
           <p className="py-2 md:py-6 font-qanect text-white text-3xl md:text-5xl"
-            style={isMd ? { lineHeight: "4rem" } : {}}>
+            style={isMd ? { lineHeight: "4.5rem" } : { lineHeight: "3rem" }}>
             {palabras[0]}
             <br />
             {palabras.slice(1).join(" ")}
@@ -164,7 +165,7 @@ const Lniuat2024 = ({ primerNombre, primerApellido, index }) => {
             )}
           </p>
           <p className="py-2 md:py-6 font-qanect text-white text-3xl md:text-5xl"
-            style={isMd ? { lineHeight: "4rem" } : {}}>
+            style={isMd ? { lineHeight: "4.5rem" } : { lineHeight: "3rem" }}>
             {palabras.slice(0, 2).join(" ")}
             <br />
             {palabras.slice(2).join(" ")}
@@ -183,7 +184,7 @@ const Lniuat2024 = ({ primerNombre, primerApellido, index }) => {
   return (
     <div>
       {/* Primera sección */}
-      <div className="relative bg-hbg1 md:bg-hbg1web min-h-screen flex flex-col justify-between items-center bg-cover bg-center h-auto px-4">
+      <div className="relative bg-hbg1 md:bg-hbg1web min-h-screen xl:min-h-[85vh] flex flex-col justify-between items-center bg-cover bg-center h-auto px-4">
         <div className="absolute inset-0 custom-gradient-1"></div>
 
         <div className="z-10 w-full max-w-sm text-center">
@@ -192,19 +193,22 @@ const Lniuat2024 = ({ primerNombre, primerApellido, index }) => {
             alt="Birrete"
             className="mx-auto mb-6 w-full md:scale-150 md:-ml-5"
           />
-          <div className="font-bison text-center text-white text-3xl md:text-4xl md:mt-16">
+          <div className="font-bison text-center text-white text-3xl md:text-4xl md:mt-24">
             FCAT - UAT <br /> 2020 - 2024
           </div>
         </div>
 
-        <div className="z-10 w-full max-w-sm md:max-w-2xl text-center">
+        <div className="z-10 w-full max-w-sm md:max-w-2xl text-center md:mt-10">
           {formatNombre(data.graduado.nombreCompleto)}
         </div>
+
+        <div className="z-10 w-full max-w-sm md:max-w-2xl text-center hidden md:flex"></div>
 
         <div className="z-10 w-full text-center mb-4">
           <p className="font-playfair text-white text-lg md:hidden">
             Viernes 13 de Diciembre del 2024
           </p>
+          {/* Movil */}
           <div className="absolute inset-0 flex items-center justify-center md:hidden">
             <img
               src={Stars1}
@@ -216,7 +220,7 @@ const Lniuat2024 = ({ primerNombre, primerApellido, index }) => {
       </div>
 
       {/* Segunda sección */}
-      <div className="relative bg-hbg2 min-h-screen flex flex-col justify-between items-center bg-cover md:bg-contain bg-center md:bg-bottom h-auto px-4">
+      <div className="relative bg-hbg2 md:bg-hbg2web min-h-screen xl:min-h-[85vh] flex flex-col justify-between items-center bg-cover md:bg-contain bg-center md:bg-bottom h-auto px-4">
         <div className="absolute -inset-1 custom-gradient-2"></div>
         <div className="absolute inset-0 custom-gradient-bottom"></div>
 
@@ -224,11 +228,12 @@ const Lniuat2024 = ({ primerNombre, primerApellido, index }) => {
           <p className="font-playfair text-white text-4xl hidden mt-8 mb-16 md:block">
             Viernes 13 de Diciembre del 2024
           </p>
+          {/* Web */}
           <div className="absolute inset-0 md:flex items-center justify-center hidden">
             <img
               src={Stars1}
               alt="Stars1"
-              className="absolute top-[0%] left-[25%] transform sm:w-90"
+              className="absolute top-[0%] left-[35%] transform sm:w-90"
             />
           </div>
           <div className="flex justify-center space-x-3 md:space-x-6 text-white font-qanect text-4xl md:text-8xl">
@@ -270,14 +275,14 @@ const Lniuat2024 = ({ primerNombre, primerApellido, index }) => {
             <img
               src={Stars2}
               alt="Stars2"
-              className="absolute top-[38%] right-[36%] transform w-6 hidden md:flex"
+              className="absolute top-[32%] right-[36%] transform w-6 hidden md:flex"
             />
           </div>
         </div>
 
         <div className="z-10 w-full max-w-sm text-center"></div>
 
-        <div className="z-10 w-full max-w-sm md:max-w-3xl text-center">
+        <div className="z-10 w-full max-w-sm md:max-w-3xl text-center md:mb-16">
           <p className="py-1 font-qanect text-3xl md:text-5xl">
             {data.invitado.nombre}
           </p>
@@ -290,6 +295,8 @@ const Lniuat2024 = ({ primerNombre, primerApellido, index }) => {
           </p>
         </div>
 
+        <div className="z-10 w-full max-w-sm text-center hidden md:flex"></div>
+
         <div className="z-10 w-full max-w-sm md:max-w-3xl text-right mt-4">
           {data.graduado.adicional && data.graduado.adicional !== "" ? (
             <p className="font-playfair text-white text-lg py-5 md:text-2xl">
@@ -300,15 +307,20 @@ const Lniuat2024 = ({ primerNombre, primerApellido, index }) => {
             <p></p>
           )}
         </div>
-        <div className="z-10 w-full max-w-sm text-center"></div>
+        <div className="z-10 w-full max-w-sm md:max-w-3xl pb-8 mx-auto flex justify-center text-center">
+          <p className="text-white font-playfair text-lg md:text-2xl hidden md:flex">
+            Y quiero reunirme con ustedes en un lugar que honre{" "}
+            <br className="hidden md:flex" /> cada paso recorrido.
+          </p>
+        </div>
       </div>
 
       {/* Tercera sección */}
-      <div className="relative bg-hbg3 md:bg-hbg3web min-h-screen flex flex-col justify-between items-center  bg-fixed bg-bottom h-auto px-4">
+      <div className="relative bg-hbg3 md:bg-hbg3web min-h-screen xl:min-h-[85vh] flex flex-col justify-between items-center  bg-fixed bg-bottom h-auto px-4">
         <div className="absolute -inset-1 custom-gradient-3"></div>
 
         <div className="z-10 w-full max-w-sm md:max-w-3xl text-right md:text-center pt-4">
-          <p className="text-white font-playfair text-lg md:text-2xl">
+          <p className="text-white font-playfair text-lg md:text-2xl md:hidden">
             Y quiero reunirme con ustedes en un lugar que honre{" "}
             <br className="hidden md:flex" /> cada paso recorrido.
           </p>
@@ -327,15 +339,7 @@ const Lniuat2024 = ({ primerNombre, primerApellido, index }) => {
             />
             Hotel HS HOTSSON
           </p>
-          <p className="py-1 text-white font-playfair text-2xl md:hidden">
-            Salon Esmeralda
-            <br />
-            Av. Miguel Hidalgo 2000, Smith,
-            <br />
-            89140, Tampico, Tamps.
-          </p>
-          {/* Web */}
-          <p className="py-6 text-white font-playfair text-3xl hidden md:block">
+          <p className="py-1 text-white font-playfair text-2xl md:mt-5">
             Salon Esmeralda
             <br />
             Av. Miguel Hidalgo 2000, Smith,
@@ -375,10 +379,12 @@ const Lniuat2024 = ({ primerNombre, primerApellido, index }) => {
         </div>
 
         <div className="z-10 w-full max-w-sm md:max-w-3xl text-center hidden md:flex"></div>
+        <div className="z-10 w-full max-w-sm md:max-w-3xl text-center hidden md:hidden lg:hidden 2xl:flex"></div>
+        <div className="z-10 w-full max-w-sm md:max-w-3xl text-center hidden md:hidden lg:hidden 2xl:flex"></div>
       </div>
 
       {/* Cuarta sección */}
-      <div className="relative custom-gradient-4 min-h-screen flex flex-col justify-between items-center bg-cover bg-no-repeat h-auto px-4">
+      <div className="relative custom-gradient-4 min-h-screen xl:min-h-[85vh] flex flex-col justify-between items-center bg-cover bg-no-repeat h-auto px-4">
         <div className="absolute inset-4 md:inset-0 md:inset-x-[30%] bg-hbg4 md:bg-hbg4web bg-cover md:bg-bottom"></div>
         <div className="absolute custom-gradient-4"></div>
         <div className="absolute left-0 md:hidden">
@@ -405,9 +411,10 @@ const Lniuat2024 = ({ primerNombre, primerApellido, index }) => {
           </div>
           {data.invitado.cantidadPasesInd === 0 ? (
             <>
-              <p className="text-3xl md:text-5xl font-qanect text-center mt-10 md:mt-20">
+              <p className="text-3xl md:text-5xl font-qanect text-center mt-10 md:mt-20 xl:mt-40">
                 Confirmación de <br /> asistencia
               </p>
+              {/* Movil */}
               <div className="flex flex-col items-center mt-4 md:hidden">
                 <div className="relative mb-4">
                   <select
@@ -512,14 +519,14 @@ const Lniuat2024 = ({ primerNombre, primerApellido, index }) => {
 
       {/* Quinta sección */}
       {data.graduado.imagenes && data.graduado.imagenes.length > 0 && (
-        <div className="relative bg-[#040814] min-h-screen flex flex-col justify-between items-center bg-cover bg-no-repeat h-auto px-4">
+        <div className="relative bg-[#040814] min-h-screen xl:min-h-[85vh] flex flex-col justify-between items-center bg-cover bg-no-repeat h-auto px-4">
           <div className="absolute bg-[#040814] -inset-1"></div>
           {/* Primera subsección */}
           <div className="z-10 w-full max-w-sm md:max-w-2xl text-center pt-12">
-            <p className="text-[1.7rem] md:text-5xl sm:text-4xl font-qanect text-white">
+            <p className="text-3xl md:text-5xl font-qanect text-white">
               Galeria de fotos
             </p>
-            <p className="font-playfair text-white mt-4 md:text-xl">
+            <p className="font-playfair text-white mt-4 md:text-2xl">
               Momentos que marcaron este viaje y que ahora{" "}
               <br className="md:hidden" /> comparto con quienes lo hicieron
               posible.

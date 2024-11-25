@@ -6,14 +6,14 @@ import PanelWrapper from './components/invitations/lniuat2024/PanelWrapper'; // 
 
 function GraduadoWrapper() {
   const { primerNombre, primerApellido, index } = useParams();
-  
-  // Validaciones de los parámetros
-  const nombreValido = /^[a-zA-Z]+$/.test(primerNombre);
-  const apellidoValido = /^[a-zA-Z]+$/.test(primerApellido);
+
+  // Validaciones de los parámetros (ahora acepta caracteres Unicode)
+  const nombreValido = /^[a-zA-Z\u00C0-\u017F]+$/.test(primerNombre); // Incluye letras con tildes
+  const apellidoValido = /^[a-zA-Z\u00C0-\u017F]+$/.test(primerApellido); // Incluye letras con tildes
   const indexValido = !isNaN(index) && parseInt(index) >= 0;
 
   if (!nombreValido || !apellidoValido || !indexValido) {
-    return <Navigate to="/error" replace />;
+    return <Navigate to="/" replace />;
   }
 
   return (
