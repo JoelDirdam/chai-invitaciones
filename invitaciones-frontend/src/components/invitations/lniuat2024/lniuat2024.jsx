@@ -316,7 +316,7 @@ const Lniuat2024 = ({ primerNombre, primerApellido, index }) => {
       </div>
 
       {/* Tercera sección */}
-      <div className="relative bg-hbg3 md:bg-hbg3web min-h-screen xl:min-h-[85vh] flex flex-col justify-between items-center  bg-fixed bg-bottom h-auto px-4">
+      <div className="relative bg-hbg3 lg:bg-hbg3web min-h-screen xl:min-h-[85vh] flex flex-col justify-between items-center bg-bottom h-auto px-4">
         <div className="absolute -inset-1 custom-gradient-3"></div>
 
         <div className="z-10 w-full max-w-sm md:max-w-3xl text-right md:text-center pt-4">

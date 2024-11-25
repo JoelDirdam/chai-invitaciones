@@ -42,16 +42,15 @@ const Panel = () => {
 
   return (
     <div className="p-4">
-      <h1 className="text-2xl font-bold mb-4">Panel de Graduados</h1>
+      <h1 className="text-2xl font-bold mb-4">Panel</h1>
       {graduados.length > 0 ? (
         <ul className="space-y-4">
           {graduados.map((graduado) => (
             <li key={graduado._id} className="flex items-start space-x-4">
               {/* Card para el ID */}
               <div
-                className={`border p-4 rounded-lg shadow-lg ${
-                  selectedGraduado === graduado ? "bg-blue-100" : "bg-white"
-                } transition-all duration-300 cursor-pointer text-center`}
+                className={`border p-4 rounded-lg shadow-lg ${selectedGraduado === graduado ? "bg-blue-100" : "bg-white"
+                  } transition-all duration-300 cursor-pointer text-center`}
                 onClick={() => handleGraduadoClick(graduado)}
                 style={{ minWidth: "80px" }}
               >
@@ -63,10 +62,24 @@ const Panel = () => {
               {/* Card para la información del graduado */}
               <div className="border p-6 rounded-lg shadow-lg bg-white flex-1">
                 <div
-                  className="cursor-pointer text-lg font-semibold"
+                  className="cursor-pointer text-lg font-semibold flex items-center justify-between"
                   onClick={() => handleGraduadoClick(graduado)}
                 >
-                  Lic. {graduado.nombreCompleto}
+                  {/* Nombre del graduado alineado a la izquierda */}
+                  {graduado.nombreCompleto === 'Profesores Profesores' 
+                  ? <span className="flex-1 text-left">Profesores</span> 
+                  : <span className="flex-1 text-left">Lic. {graduado.nombreCompleto}</span>}
+
+                  {/* Confirmados / Total centrado */}
+                  <span className="flex-4 text-center text-gray-500">
+                    {graduado.arrayInvitados.reduce(
+                      (acc, invitado) =>
+                        acc + (invitado.status === 'confirmada' ? invitado.cantidadPasesInd : 0),
+                      0
+                    )}
+                    /
+                    {graduado.numeroInvitados}
+                  </span>
                 </div>
                 {selectedGraduado === graduado && (
                   <ul className="mt-4 space-y-2 bg-gray-100 p-4 rounded-lg">
@@ -77,11 +90,10 @@ const Panel = () => {
                         </p>
                         <p>
                           <span
-                            className={`flex items-center gap-3 ${
-                              invitado.status === "pendiente"
-                                ? "text-orange-500"
-                                : "text-green-500"
-                            } space-x-1`}
+                            className={`flex items-center gap-3 ${invitado.status === "pendiente"
+                              ? "text-orange-500"
+                              : "text-green-500"
+                              } space-x-1`}
                           >
                             {invitado.status === "pendiente" ? (
                               <>
@@ -100,13 +112,10 @@ const Panel = () => {
                           </span>
                         </p>
                         <a
-                          href={`${
-                            window.location.origin
-                          }/invitations/grad/lniuat2024/${
-                            graduado.nombreCompleto.split(" ")[0]
-                          }/${graduado.nombreCompleto.split(" ")[1]}/${
-                            index + 1
-                          }`}
+                          href={`${window.location.origin
+                            }/invitations/grad/lniuat2024/${graduado.nombreCompleto.split(" ")[0]
+                            }/${graduado.nombreCompleto.split(" ")[1]}/${index + 1
+                            }`}
                           className="text-blue-500 hover:underline"
                           target="_blank"
                           rel="noopener noreferrer"
