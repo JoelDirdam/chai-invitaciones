@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const mongoose = require("mongoose");
 const { graduadoSchema } = require("../../models/Graduado"); // Importa solo el esquema
+const Imagen = require("../../models/Imagen"); // Importa el modelo de imágenes
 
 // Función para obtener el modelo en la base de datos configurada
 const getGraduadoModel = () => {
@@ -16,6 +17,7 @@ router.get("/:primerNombre,:primerApellido,:index", async (req, res) => {
     const { primerNombre, primerApellido, index } = req.params;
     const Graduado = getGraduadoModel(); // Obtén el modelo desde la base de datos correcta
 
+    // Buscar graduado
     const regex = new RegExp(
       `${primerNombre.trim()}.*${primerApellido.trim()}`,
       "i"
@@ -26,11 +28,19 @@ router.get("/:primerNombre,:primerApellido,:index", async (req, res) => {
       return res.status(404).json({ error: "Graduado no encontrado" });
     }
 
+    // Validar índice de invitado
     const invitadoIndex = parseInt(index - 1, 10);
     if (invitadoIndex < 0 || invitadoIndex >= graduado.arrayInvitados.length) {
       return res.status(400).json({ error: "Índice de invitado no válido" });
     }
 
+    // Buscar imágenes asociadas al graduado
+    const imagenes = await Imagen.find({ graduado_id: graduado.numeroLista });
+
+    // Extraer las imágenes como array de strings o devolver un array vacío si no hay imágenes
+    const imagenesArray = imagenes.length > 0 ? imagenes.map((img) => img.imagen) : [];
+
+    // Responder con los datos del graduado e invitado
     const invitado = graduado.arrayInvitados[invitadoIndex];
     res.json({
       graduado: {
@@ -41,7 +51,7 @@ router.get("/:primerNombre,:primerApellido,:index", async (req, res) => {
         numeroInvitados: graduado.numeroInvitados,
         numeroLista: graduado.numeroLista,
         adicional: graduado.adicional,
-        imagenes: graduado.imagenes,
+        imagenes: imagenesArray,
         updatedAt: graduado.updatedAt,
       },
       invitado: invitado,

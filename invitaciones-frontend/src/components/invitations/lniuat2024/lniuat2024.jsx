@@ -17,6 +17,7 @@ import StarsSec4_1 from "../../../assets/invitations/lniuat2024/stars-sec4-1.svg
 import StarsSec4_2 from "../../../assets/invitations/lniuat2024/stars-sec4-2.svg";
 import StarsSec4_3 from "../../../assets/invitations/lniuat2024/stars-sec4-3.svg";
 import PopUpImage from "./PopUpImage";
+import GallerySection from "./GallerySection";
 import Footer from "./Footer";
 import "../lniuat2024/lniuat2024.css";
 
@@ -546,23 +547,8 @@ const Lniuat2024 = ({ primerNombre, primerApellido, index }) => {
           </div>
 
           {/* Segunda subsección - Galería de fotos */}
-          <div
-            className={`z-30 w-full max-w-sm md:max-w-2xl gap-4 mt-8 md:mt-16 px-2 pb-32 ${data.graduado.imagenes.length === 1
-              ? 'columns-1 flex justify-center'
-              : data.graduado.imagenes.length === 2
-                ? 'columns-2'
-                : 'columns-3'
-              }`}
-          >
-            {data.graduado.imagenes.slice(0, 6).map((imagen, index) => (
-              <img
-                key={index}
-                src={imagen}
-                alt={`Galeria ${index + 1}`}
-                className={`w-full mb-6 break-inside-avoid max-w-[500px]`}
-              />
-            ))}
-          </div>
+          <GallerySection data={data} />;
+
           <div className="z-10 w-full max-w-sm md:max-w-3xl text-center hidden md:flex"></div>
           <div className="absolute inset-0 flex justify-center">
             <img

@@ -53,3 +53,30 @@ html, body {
         background: linear-gradient(to bottom, transparent 30%, white 40%,#0408149c, #040814 75%);
     }
   }
+
+/* Flechas de navegación */
+.swiper-button-next,
+.swiper-button-prev {
+  color: white; /* Cambia el color de las flechas a blanco */
+  background-color: rgba(0, 0, 0, 0.4); /* Fondo semi-transparente */
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+}
+
+/* Ajustar el tamaño de las flechas */
+.swiper-button-next::after,
+.swiper-button-prev::after {
+  font-size: 20px;
+}
+
+/* Puntos de paginación */
+.swiper-pagination-bullet {
+  background-color: white; /* Cambia el color de los puntos a blanco */
+  opacity: 0.7; /* Reduce un poco la opacidad */
+}
+
+.swiper-pagination-bullet-active {
+  background-color: white; /* Asegura que el punto activo también sea blanco */
+  opacity: 1; /* Opacidad completa para el punto activo */
+}
