@@ -66,9 +66,9 @@ const Panel = () => {
                   onClick={() => handleGraduadoClick(graduado)}
                 >
                   {/* Nombre del graduado alineado a la izquierda */}
-                  {graduado.nombreCompleto === 'Profesores Profesores' 
-                  ? <span className="flex-1 text-left">Profesores</span> 
-                  : <span className="flex-1 text-left">Lic. {graduado.nombreCompleto}</span>}
+                  {graduado.nombreCompleto === 'Profesores Profesores'
+                    ? <span className="flex-1 text-left">Profesores</span>
+                    : <span className="flex-1 text-left">Lic. {graduado.nombreCompleto}</span>}
 
                   {/* Confirmados / Total centrado */}
                   <span className="flex-4 text-center text-gray-500">
@@ -114,8 +114,8 @@ const Panel = () => {
                         <a
                           href={`${window.location.origin
                             }/invitations/grad/lniuat2024/${graduado.nombreCompleto.split(" ")[0]
-                            }/${graduado.nombreCompleto.split(" ")[1]}/${index + 1
-                            }`}
+                            }/${graduado.nombreCompleto.split(" ")[graduado.nombreCompleto.split(" ").length - 2]
+                            }/${index + 1}`}
                           className="text-blue-500 hover:underline"
                           target="_blank"
                           rel="noopener noreferrer"
