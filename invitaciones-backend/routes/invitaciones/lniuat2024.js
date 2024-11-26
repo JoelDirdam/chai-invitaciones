@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 const mongoose = require("mongoose");
 const { graduadoSchema } = require("../../models/Graduado"); // Importa solo el esquema
-const Imagen = require("../../models/Imagen"); // Importa el modelo de imágenes
+const { imagenesSchema } = require("../../models/Imagen"); // Importa el modelo de imágenes
 
 // Función para obtener el modelo en la base de datos configurada
 const getGraduadoModel = () => {
@@ -11,36 +11,37 @@ const getGraduadoModel = () => {
   return db.model("Graduado", graduadoSchema); // Registra el modelo con el esquema
 };
 
-// Obtener información de un invitado específico y del graduado
+const getImagenModel = () => {
+  const dbName = process.env.DB_NAME || "test"; // Usa la base configurada en .env
+  const db = mongoose.connection.useDb(dbName); // Cambia dinámicamente de base
+  return db.model("Imagen", imagenesSchema); // Registra el modelo con el esquema
+};
+
 router.get("/:primerNombre,:primerApellido,:index", async (req, res) => {
   try {
     const { primerNombre, primerApellido, index } = req.params;
     const Graduado = getGraduadoModel(); // Obtén el modelo desde la base de datos correcta
-
-    // Buscar graduado
-    const regex = new RegExp(
-      `${primerNombre.trim()}.*${primerApellido.trim()}`,
-      "i"
-    );
+    const regex = new RegExp(`${primerNombre.trim()}.*${primerApellido.trim()}`, "i");
     const graduado = await Graduado.findOne({ nombreCompleto: regex });
 
     if (!graduado) {
       return res.status(404).json({ error: "Graduado no encontrado" });
     }
 
-    // Validar índice de invitado
     const invitadoIndex = parseInt(index - 1, 10);
     if (invitadoIndex < 0 || invitadoIndex >= graduado.arrayInvitados.length) {
       return res.status(400).json({ error: "Índice de invitado no válido" });
     }
 
-    // Buscar imágenes asociadas al graduado
-    const imagenes = await Imagen.find({ graduado_id: graduado.numeroLista });
+    const ImagenModel = getImagenModel(); // Obtén el modelo de imágenes
+    const imagenes = await ImagenModel.find({ graduado_id: graduado.numeroLista });
 
-    // Extraer las imágenes como array de strings o devolver un array vacío si no hay imágenes
+    console.log("Base de datos activa:", mongoose.connection.name);
+    console.log("Colección del modelo Imagen:", ImagenModel.collection.name);
+    console.log("Base de datos del modelo Imagen:", ImagenModel.db.databaseName);
+
     const imagenesArray = imagenes.length > 0 ? imagenes.map((img) => img.imagen) : [];
 
-    // Responder con los datos del graduado e invitado
     const invitado = graduado.arrayInvitados[invitadoIndex];
     res.json({
       graduado: {
@@ -57,9 +58,7 @@ router.get("/:primerNombre,:primerApellido,:index", async (req, res) => {
       invitado: invitado,
     });
   } catch (error) {
-    res
-      .status(500)
-      .json({ error: `Error al buscar el invitado: ${error.message}` });
+    res.status(500).json({ error: `Error al buscar el invitado: ${error.message}` });
   }
 });
 
