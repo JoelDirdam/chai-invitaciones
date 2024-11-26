@@ -58,6 +58,7 @@ const Lniuat2024 = ({ primerNombre, primerApellido, index }) => {
 
     const handleResize = () => {
       // Verifica si la pantalla es al menos 'md' (768px)
+      console.log(window.innerWidth);
       setIsMd(window.innerWidth >= 768);
     };
 
@@ -226,7 +227,7 @@ const Lniuat2024 = ({ primerNombre, primerApellido, index }) => {
         <div className="absolute inset-0 custom-gradient-bottom"></div>
 
         <div className="z-10 w-full max-w-sm md:max-w-2xl text-center pt-2">
-          <p className="font-playfair text-white text-4xl hidden mt-8 mb-16 md:block">
+          <p className="font-playfair text-white text-4xl hidden mt-8 mb-16 md:mb-10 3xl:mb-16 md:block">
             Viernes 13 de Diciembre del 2024
           </p>
           {/* Web */}
@@ -234,10 +235,10 @@ const Lniuat2024 = ({ primerNombre, primerApellido, index }) => {
             <img
               src={Stars1}
               alt="Stars1"
-              className="absolute top-[0%] left-[35%] transform sm:w-90"
+              className="absolute top-[0%] left-[25%] 3xl:left-[35%] transform sm:w-90"
             />
           </div>
-          <div className="flex justify-center space-x-3 md:space-x-6 text-white font-qanect text-4xl md:text-8xl">
+          <div className="flex justify-center space-x-3 md:space-x-6 text-white font-qanect text-4xl md:text-7xl 3xl:text-8xl">
             <div className="flex flex-col items-center">
               <p>{countdown.days}</p>
               <p className="text-xs md:text-xl font-playfair">días</p>
@@ -264,7 +265,7 @@ const Lniuat2024 = ({ primerNombre, primerApellido, index }) => {
               <p className="text-xs md:text-xl font-playfair">segundos</p>
             </div>
           </div>
-          <p className="pt-5 md:pt-10 font-playfair text-white text-lg md:text-4xl">
+          <p className="pt-5 md:pt-6 md:pb-16 3xl:pt-10 font-playfair text-white text-lg md:text-4xl">
             A partir de las 8:00 pm
           </p>
           <div className="absolute inset-0 flex items-center justify-center">
@@ -412,7 +413,7 @@ const Lniuat2024 = ({ primerNombre, primerApellido, index }) => {
           </div>
           {data.invitado.cantidadPasesInd === 0 ? (
             <>
-              <p className="text-3xl md:text-5xl font-qanect text-center mt-10 md:mt-20 xl:mt-40">
+              <p className="text-3xl md:text-5xl font-qanect text-center mt-10 md:mt-20 3xl:mt-40">
                 Confirmación de <br /> asistencia
               </p>
               {/* Movil */}
@@ -536,12 +537,12 @@ const Lniuat2024 = ({ primerNombre, primerApellido, index }) => {
               <img
                 src={StarsSec4_1}
                 alt="Stars1"
-                className="absolute top-[45px] md:top-[2%] left-[20px] md:left-[32%] transform w-6 md:w-10"
+                className="absolute top-[45px] md:top-[2%] left-[20px] md:left-[30%] 3xl:left-[32%] transform w-6 md:w-10"
               />
               <img
                 src={StarsSec4_2}
                 alt="Stars1"
-                className="absolute top-[40px] md:top-[2%] right-[20px] md:right-[32%] transform w-6 md:w-8"
+                className="absolute top-[40px] md:top-[2%] right-[20px] md:right-[30%] 3xl:right-[32%] transform w-6 md:w-8"
               />
             </div>
           </div>
