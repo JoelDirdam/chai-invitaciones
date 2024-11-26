@@ -36,10 +36,6 @@ router.get("/:primerNombre,:primerApellido,:index", async (req, res) => {
     const ImagenModel = getImagenModel(); // Obtén el modelo de imágenes
     const imagenes = await ImagenModel.find({ graduado_id: graduado.numeroLista });
 
-    console.log("Base de datos activa:", mongoose.connection.name);
-    console.log("Colección del modelo Imagen:", ImagenModel.collection.name);
-    console.log("Base de datos del modelo Imagen:", ImagenModel.db.databaseName);
-
     const imagenesArray = imagenes.length > 0 ? imagenes.map((img) => img.imagen) : [];
 
     const invitado = graduado.arrayInvitados[invitadoIndex];

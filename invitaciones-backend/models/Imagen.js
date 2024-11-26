@@ -9,7 +9,8 @@ const imagenesSchema = new mongoose.Schema(
   { collection: "imagenes" } // Nombre de la colección en la base de datos
 );
 
+// Exporta el esquema y el modelo
 module.exports = {
-  schema: imagenesSchema,
+  imagenesSchema,
   model: mongoose.model("Imagen", imagenesSchema),
 };
