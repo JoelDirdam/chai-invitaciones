@@ -25,7 +25,7 @@ const PopUpImage = () => {
     return (
         <>
             {/* Componente principal */}
-            <div className="z-10 max-w-sm md:max-w-xl text-right pb-10">
+            <div className="z-10 max-w-sm md:max-w-xl text-right pb-10 md:pt-16 3xl:pt-0">
                 {/* Botón para abrir la imagen */}
                 <button
                     onClick={handleOpenImage}

@@ -20,6 +20,9 @@ module.exports = {
         playfair: ['"Playfair Display"', 'serif'],
         qanect: ['"Qanect Elegant"', 'sans-serif'],
       },
+      screens: {
+        '3xl': '1800px',
+      }
     },
   },
   plugins: [],
