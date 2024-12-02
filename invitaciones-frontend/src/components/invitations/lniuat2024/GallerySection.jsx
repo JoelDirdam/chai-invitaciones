@@ -23,7 +23,7 @@ const GallerySection = ({ data }) => {
                 slidesPerView={1} // Mostrar una imagen por vez
                 centeredSlides={true} // Centrar las imágenes
             >
-                {data.graduado.imagenes.slice(0, 6).map((imagen, index) => (
+                {data.graduado.imagenes.slice(0, 10).map((imagen, index) => (
                     <SwiperSlide key={index}>
                         <img
                             src={imagen}
