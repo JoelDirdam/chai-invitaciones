@@ -1,6 +1,5 @@
 const mongoose = require("mongoose");
 
-// Definición del esquema para la colección de imágenes
 const imagenesSchema = new mongoose.Schema(
   {
     graduado_id: { type: Number, required: true },
@@ -10,5 +9,8 @@ const imagenesSchema = new mongoose.Schema(
   { collection: "imagenes" } // Nombre de la colección en la base de datos
 );
 
-// Exporta el modelo de imágenes
-module.exports = mongoose.model("Imagen", imagenesSchema);
+// Exporta el esquema y el modelo
+module.exports = {
+  imagenesSchema,
+  model: mongoose.model("Imagen", imagenesSchema),
+};
