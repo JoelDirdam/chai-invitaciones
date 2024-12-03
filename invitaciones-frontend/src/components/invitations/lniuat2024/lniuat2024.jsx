@@ -174,6 +174,44 @@ const Lniuat2024 = ({ primerNombre, primerApellido, index }) => {
           </p>
         </>
       );
+    } else if (totalPalabras === 5) {
+      // Si hay 5 palabras
+      return (
+        <>
+          <p className="font-playfair text-white text-lg md:text-4xl">
+            {data.graduado.genero === "masculino" ? (
+              <div>Licenciado en Negocios Internacionales</div>
+            ) : (
+              <div>Licenciada en Negocios Internacionales</div>
+            )}
+          </p>
+          <p className="py-2 md:py-6 font-qanect text-white text-3xl md:text-5xl"
+            style={isMd ? { lineHeight: "4.5rem" } : { lineHeight: "3rem" }}>
+            {palabras.slice(0, 3).join(" ")}
+            <br />
+            {palabras.slice(3).join(" ")}
+          </p>
+        </>
+      );
+    } else if (totalPalabras === 6) {
+      // Si hay 6 palabras
+      return (
+        <>
+          <p className="font-playfair text-white text-lg md:text-4xl">
+            {data.graduado.genero === "masculino" ? (
+              <div>Licenciado en Negocios Internacionales</div>
+            ) : (
+              <div>Licenciada en Negocios Internacionales</div>
+            )}
+          </p>
+          <p className="py-2 md:py-6 font-qanect text-white text-3xl md:text-5xl"
+            style={isMd ? { lineHeight: "4.5rem" } : { lineHeight: "3rem" }}>
+            {palabras.slice(0, 2).join(" ")}
+            <br />
+            {palabras.slice(2).join(" ")}
+          </p>
+        </>
+      );
     } else {
       // Para otros casos, muestra el nombre completo tal cual
       return nombreCompleto;
@@ -387,7 +425,7 @@ const Lniuat2024 = ({ primerNombre, primerApellido, index }) => {
 
       {/* Cuarta sección */}
       <div className="relative custom-gradient-4 min-h-screen xl:min-h-[85vh] flex flex-col justify-between items-center bg-cover bg-no-repeat h-auto px-4">
-        <div className="absolute inset-4 md:inset-0 md:inset-x-[30%] bg-hbg4 md:bg-hbg4web bg-cover md:bg-bottom"></div>
+        <div className="absolute inset-4 md:inset-0 md:inset-x-[10%] 3xl:inset-x-[30%] bg-hbg4 md:bg-hbg4web bg-cover md:bg-bottom"></div>
         <div className="absolute custom-gradient-4"></div>
         <div className="absolute left-0 md:hidden">
           <img src={DiscoBall} alt="Disco ball" className="w-[45%] h-full" />
